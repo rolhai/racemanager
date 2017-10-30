@@ -1,13 +1,13 @@
 # racemanager
 
 the purpose of the application is to manage whole motor race seasons.
-you can change tracks, drivers, teams and so on.
+you can edit tracks, drivers, teams, events and so on. if you gather race results you can get various statistics.
 
 ## features
 
 - server
-- - java ee 7
 - - rest api
+- - java ee 7
 - client
 - - single page application (spa)
 - - angular 4
