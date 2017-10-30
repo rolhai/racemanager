@@ -24,3 +24,4 @@ you can edit tracks, drivers, teams, events and so on. if you gather race result
 ## build
 
 - mvn clean install
+- ng serve --open
