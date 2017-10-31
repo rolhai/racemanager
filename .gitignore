@@ -4,7 +4,9 @@
 /dist
 /tmp
 /out-tsc
-/target
+webapp/target
+webapp/dist
+services/target
 
 # Package Files #
 *.jar
@@ -15,7 +17,7 @@
 *.rar
 
 # dependencies
-/node_modules
+webapp/node_modules
 
 # IDEs and editors
 /.idea
