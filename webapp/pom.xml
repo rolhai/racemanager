@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <parent>
         <artifactId>racemanager-parent</artifactId>
         <groupId>at.racemanager</groupId>
@@ -14,55 +14,66 @@
     <packaging>war</packaging>
 
     <build>
+        <finalName>racemanager-webapp</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <excludes>
+                        <exclude>ngapp/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <excludes>
+                        <exclude>ngapp/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.5.0</version>
                 <executions>
                     <execution>
-                        <id>install npm</id>
+                        <id>exec-npm-install</id>
+                        <phase>generate-resources</phase>
                         <configuration>
-                            <workingDirectory>./src/</workingDirectory>
+                            <workingDirectory>${project.basedir}/src/main/ngapp/</workingDirectory>
                             <executable>npm</executable>
                             <arguments>
                                 <argument>install</argument>
                             </arguments>
                         </configuration>
-                        <phase>generate-resources</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <id>build js</id>
+                        <id>exe-npm-ng-build</id>
+                        <phase>generate-resources</phase>
                         <configuration>
-                            <workingDirectory>./src</workingDirectory>
+                            <workingDirectory>${project.basedir}/src/main/ngapp</workingDirectory>
                             <executable>ng</executable>
                             <arguments>
                                 <argument>build</argument>
                                 <argument>--target=production</argument>
                                 <argument>--environment=prod</argument>
+                                <argument>--base-href=/racemanager-webapp/ng/</argument>
                             </arguments>
                         </configuration>
-                        <phase>generate-resources</phase>
+
                         <goals>
                             <goal>exec</goal>
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <webResources>
-                        <resource>
-                            <directory>dist</directory>
-                            <targetPath>/</targetPath>
-                        </resource>
-                    </webResources></configuration>
             </plugin>
         </plugins>
     </build>

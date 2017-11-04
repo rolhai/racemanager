@@ -5,7 +5,8 @@
 /tmp
 /out-tsc
 webapp/target
-webapp/dist
+webapp/src/main/ngapp/dist
+webapp/src/main/webapp/ng
 services/target
 
 # Package Files #
@@ -17,7 +18,7 @@ services/target
 *.rar
 
 # dependencies
-webapp/node_modules
+webapp/src/main/ngapp/node_modules
 
 # IDEs and editors
 /.idea
