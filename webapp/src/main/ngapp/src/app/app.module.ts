@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { DriverDetailComponent } from './driver-detail.component';
 
 @NgModule({
     imports: [
@@ -10,7 +11,8 @@ import { AppComponent } from './app.component';
         FormsModule
     ],
     declarations: [
-        AppComponent
+        AppComponent,
+        DriverDetailComponent
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -1,0 +1,8 @@
+<div *ngIf="driver">
+    <h2>{{driver.lastname}} details</h2>
+    <div><label>id: </label>{{driver.id}}</div>
+    <div>
+        <label>firstname: </label>
+        <input [(ngModel)]="driver.firstname" placeholder="firstname"/>
+    </div>
+</div>

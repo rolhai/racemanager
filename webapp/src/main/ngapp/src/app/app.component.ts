@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 
-export class Driver {
-    id: number;
-    firstname: string;
-    lastname: string;
-}
+import { Driver } from './driver';
 
 const DRIVERS: Driver[] = [
     { id: 11, firstname: 'Fernando',  lastname: 'Alonso' },

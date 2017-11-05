@@ -4,12 +4,5 @@
         <span class="badge">{{driver.id}}</span> {{driver.lastname}}
     </li>
 </ul>
-<div *ngIf="selectedDriver">
-    <h2>{{selectedDriver.lastname}} details</h2>
-    <div><label>id: </label>{{selectedDriver.id}}</div>
-    <div>
-        <label>firstname: </label>
-        <input [(ngModel)]="selectedDriver.firstname" placeholder="firstname"/>
-    </div>
-</div>
+<driver-detail [driver]="selectedDriver"></driver-detail>
 
