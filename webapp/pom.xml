@@ -7,7 +7,7 @@
     <parent>
         <artifactId>racemanager-parent</artifactId>
         <groupId>at.racemanager</groupId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>racemanager-webapp</artifactId>
@@ -19,7 +19,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
                 <configuration>
                     <excludes>
                         <exclude>ngapp/**</exclude>
@@ -29,7 +28,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.0.0</version>
                 <configuration>
                     <excludes>
                         <exclude>ngapp/**</exclude>
@@ -39,7 +37,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.5.0</version>
                 <executions>
                     <execution>
                         <id>exec-npm-install</id>
@@ -68,7 +65,6 @@
                                 <argument>--base-href=/racemanager-webapp/ng/</argument>
                             </arguments>
                         </configuration>
-
                         <goals>
                             <goal>exec</goal>
                         </goals>
