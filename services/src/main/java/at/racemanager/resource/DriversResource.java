@@ -19,6 +19,6 @@ public class DriversResource {
 
     @GET
     public Response getDriver(String namefilter) {
-        return Response.ok(driversApiService.getDriver(namefilter)).build();
+        return Response.ok(driversApiService.getDrivers()).build();
     }
 }
