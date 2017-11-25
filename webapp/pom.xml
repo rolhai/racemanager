@@ -20,18 +20,21 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <excludes>
-                        <exclude>ngapp/**</exclude>
-                    </excludes>
+                    <!--excludes>
+                        <exclude>/src/node_modules/**</exclude>
+                    </excludes-->
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <excludes>
-                        <exclude>ngapp/**</exclude>
-                    </excludes>
+                    <!--excludes>
+                        <exclude>/src/node_modules/**</exclude>
+                    </excludes-->
+		    <!--includes>
+			<include>../dist/**</include>
+		    </includes-->
                 </configuration>
             </plugin>
             <plugin>
@@ -42,7 +45,7 @@
                         <id>exec-npm-install</id>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <workingDirectory>${project.basedir}/src/main/ngapp/</workingDirectory>
+                            <workingDirectory>${project.basedir}/src/</workingDirectory>
                             <executable>npm</executable>
                             <arguments>
                                 <argument>install</argument>
@@ -56,13 +59,13 @@
                         <id>exe-npm-ng-build</id>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <workingDirectory>${project.basedir}/src/main/ngapp</workingDirectory>
+                            <workingDirectory>${project.basedir}/src/</workingDirectory>
                             <executable>ng</executable>
                             <arguments>
                                 <argument>build</argument>
                                 <argument>--target=production</argument>
                                 <argument>--environment=prod</argument>
-                                <argument>--base-href=/racemanager-webapp/ng/</argument>
+                                <argument>--base-href=/racemanager-webapp/</argument>
                             </arguments>
                         </configuration>
                         <goals>
