@@ -19,23 +19,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <!--excludes>
-                        <exclude>/src/node_modules/**</exclude>
-                    </excludes-->
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <!--excludes>
-                        <exclude>/src/node_modules/**</exclude>
-                    </excludes-->
-		    <!--includes>
-			<include>../dist/**</include>
-		    </includes-->
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
