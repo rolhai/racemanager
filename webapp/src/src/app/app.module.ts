@@ -4,6 +4,7 @@ import { FormsModule }   from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { DriverDetailComponent } from './driver-detail.component';
+import { DriverService } from './driver.service';
 
 @NgModule({
     imports: [
@@ -14,7 +15,7 @@ import { DriverDetailComponent } from './driver-detail.component';
         AppComponent,
         DriverDetailComponent
     ],
-    providers: [],
+    providers: [DriverService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

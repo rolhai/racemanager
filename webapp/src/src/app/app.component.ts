@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
-
 import { Driver } from './driver';
-
-const DRIVERS: Driver[] = [
-    { id: 11, firstname: 'Fernando',  lastname: 'Alonso' },
-    { id: 12, firstname: 'Sebastian', lastname: 'Vettel' },
-    { id: 13, firstname: 'Lewis',     lastname: 'Hamilton' }
-];
+import { DriverService } from './driver.service';
 
 @Component({
     selector: 'app-root',
@@ -15,8 +9,19 @@ const DRIVERS: Driver[] = [
 })
 export class AppComponent {
     title = 'Tour of Drivers';
-    drivers = DRIVERS;
+    drivers : Driver[];
     selectedDriver: Driver;
+
+    constructor(private driverService: DriverService) {
+    }
+
+    ngOnInit() {
+        this.getDrivers();
+    }
+
+    getDrivers(): void {
+        this.drivers = this.driverService.getDrivers();
+    }
 
     onSelect(driver: Driver): void {
         this.selectedDriver = driver;
