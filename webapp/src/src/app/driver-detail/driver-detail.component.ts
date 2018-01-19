@@ -1,10 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { Driver } from './driver';
+import { Driver } from '../entity/driver';
 
 @Component({
-    selector: 'driver-detail',
+    selector: 'app-driver-detail',
     templateUrl: './driver-detail.component.html',
+    styleUrls:  ['./driver-detail.component.css']
 })
 export class DriverDetailComponent {
+
     @Input() driver: Driver;
 }

@@ -3,8 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { DriverDetailComponent } from './driver-detail.component';
-import { DriverService } from './driver.service';
+import { DriversComponent} from './drivers/drivers.component';
+import { DriverDetailComponent } from './driver-detail/driver-detail.component';
+import { MessagesComponent } from './messages/messages.component';
+
+import { DriverService } from './services/driver.service';
+import { MessageService } from './services/message.service';
 
 @NgModule({
     imports: [
@@ -13,9 +17,11 @@ import { DriverService } from './driver.service';
     ],
     declarations: [
         AppComponent,
-        DriverDetailComponent
+        DriversComponent,
+        DriverDetailComponent,
+        MessagesComponent
     ],
-    providers: [DriverService],
+    providers: [DriverService, MessageService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
