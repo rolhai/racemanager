@@ -11,7 +11,7 @@ export class DriversComponent implements OnInit {
 
     title = 'Drivers';
     drivers : Driver[];
-    selectedDriver: Driver;
+    //selectedDriver: Driver;
 
     constructor(private driverService: DriverService) {}
 
@@ -24,8 +24,10 @@ export class DriversComponent implements OnInit {
             .subscribe(drivers => this.drivers = drivers);
     }
 
+    /*
     onSelect(driver: Driver): void {
         this.selectedDriver = driver;
     }
+    */
 
 }
