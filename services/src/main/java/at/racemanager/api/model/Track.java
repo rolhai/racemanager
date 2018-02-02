@@ -4,9 +4,22 @@ import java.util.Objects;
 
 public class Track {
 
+    private Long id;
+
+    /**
+     * unique
+     */
     private String name;
 
     private Country country;
+
+    public Long getId() {
+        return id;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -51,7 +64,6 @@ public class Track {
 
     @Override
     public String toString() {
-        return "Track{" + "name=" + name + ", country=" + country + '}';
+        return "Track{" + "id=" + id + ", name=" + name + ", country=" + country + '}';
     }
-
 }

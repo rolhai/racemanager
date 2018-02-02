@@ -4,13 +4,25 @@ import java.util.Objects;
 
 public class Country {
 
+    private Long id;
+
     /**
      * Country Codes - ISO 3166 Alpha2-Code
      * https://www.iso.org/obp/ui/#search/code/
+     *
+     * unique
      */
     private String isoCode;
 
     private String name;
+
+    public Long getId() {
+        return id;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 
     public String getIsoCode() {
         return isoCode;
@@ -55,6 +67,6 @@ public class Country {
 
     @Override
     public String toString() {
-        return "Country{" + "isoCode=" + isoCode + ", name=" + name + '}';
+        return "Country{" + "id=" + id + ", isoCode=" + isoCode + ", name=" + name + '}';
     }
 }

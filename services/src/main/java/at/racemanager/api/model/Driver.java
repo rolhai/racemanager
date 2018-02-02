@@ -5,13 +5,29 @@ import java.util.Objects;
 
 public class Driver {
 
+    private Long id;
+
+    /**
+     * unique
+     */
     private String firstname;
 
+    /**
+     * unique
+     */
     private String lastname;
 
     private LocalDate dateOfBirth;
 
     private Country country;
+
+    public Long getId() {
+        return id;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 
     public String getFirstname() {
         return firstname;
@@ -76,6 +92,6 @@ public class Driver {
 
     @Override
     public String toString() {
-        return "Driver{" + "firstname=" + firstname + ", lastname=" + lastname + ", dateOfBirth=" + dateOfBirth + ", country=" + country + '}';
+        return "Driver{" + "id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", dateOfBirth=" + dateOfBirth + ", country=" + country + '}';
     }
 }
