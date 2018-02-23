@@ -2,9 +2,22 @@ package at.racemanager.api.model;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "drivers")
+@NamedQuery(name = "Driver.selectAll", query = "SELECT d FROM Driver d")
 public class Driver {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
@@ -19,6 +32,8 @@ public class Driver {
 
     private LocalDate dateOfBirth;
 
+    @ManyToOne
+    @JoinColumn(name = "countryId", nullable = false)
     private Country country;
 
     public Long getId() {

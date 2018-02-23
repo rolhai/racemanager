@@ -1,14 +1,22 @@
 package at.racemanager.api.model;
 
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "countries")
 public class Country {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
-     * Country Codes - ISO 3166 Alpha2-Code
-     * https://www.iso.org/obp/ui/#search/code/
+     * Country Codes - ISO 3166 Alpha2-Code c
      *
      * unique
      */

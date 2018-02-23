@@ -5,7 +5,7 @@ import javax.ws.rs.ApplicationPath;
 /**
  * REST-Application
  */
-@ApplicationPath("api")
+@ApplicationPath("rest")
 public class Application extends javax.ws.rs.core.Application {
 
 }

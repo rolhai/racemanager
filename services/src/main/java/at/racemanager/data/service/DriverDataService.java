@@ -1,14 +1,48 @@
-package at.racemanager.api.service;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package at.racemanager.data.service;
 
-import at.racemanager.api.model.Country;
 import at.racemanager.api.model.Driver;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
-public class DriversApiService {
+/**
+ *
+ * @author rolhai
+ */
+@Stateless
+public class DriverDataService {
+
+    @PersistenceContext
+    private EntityManager em;
+
+    public EntityManager getEntityManager() {
+        return em;
+    }
+
+    public Driver createDriver(Driver driver) {
+        return em.merge(driver);
+    }
+
+    public void saveDriver(Driver driver) {
+        em.persist(driver);
+    }
+
+    public Driver findDriver(Long id) {
+        return em.find(Driver.class, id);
+    }
 
     public List<Driver> getDrivers() {
+        TypedQuery<Driver> query = em.createNamedQuery("Driver.selectAll", Driver.class);
+        return query.getResultList();
+
+        /*
         List<Driver> drivers = new ArrayList<>();
 
         Country spain = new Country();
@@ -45,5 +79,6 @@ public class DriversApiService {
         drivers.add(vettel);
         drivers.add(hamilton);
         return drivers;
+         */
     }
 }
