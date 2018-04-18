@@ -1,4 +1,4 @@
-package at.racemanager.api.model;
+package at.racemanager.api.entity;
 
 import java.time.LocalDate;
 import java.util.List;

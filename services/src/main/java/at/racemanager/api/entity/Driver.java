@@ -1,24 +1,26 @@
-package at.racemanager.api.model;
+package at.racemanager.api.entity;
 
 import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "drivers")
-@NamedQuery(name = "Driver.selectAll", query = "SELECT d FROM Driver d")
-public class Driver {
+@NamedQueries({
+    @NamedQuery(name = Driver.FIND_ALL, query = "FROM Driver") // JOIN d.country
+    ,
+    @NamedQuery(name = Driver.COUNT_RESULTS, query = "SELECT COUNT(d) FROM Driver d")
+})
+public class Driver extends ApiEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public static final String FIND_ALL = "Driver.findAll";
+
+    public static final String COUNT_RESULTS = "Driver.countResults";
 
     /**
      * unique
@@ -32,17 +34,10 @@ public class Driver {
 
     private LocalDate dateOfBirth;
 
-    @ManyToOne
-    @JoinColumn(name = "countryId", nullable = false)
+    @ManyToOne//(fetch = FetchType.LAZY)
+    //@Fetch(FetchMode.JOIN)
+    @JoinColumn(name = "countryId")
     private Country country;
-
-    public Long getId() {
-        return id;
-    }
-
-    protected void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFirstname() {
         return firstname;

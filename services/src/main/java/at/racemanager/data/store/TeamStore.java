@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package at.racemanager.api.service;
+package at.racemanager.data.store;
 
 import javax.ejb.Stateless;
 
@@ -12,6 +12,6 @@ import javax.ejb.Stateless;
  * @author rolhai
  */
 @Stateless
-public class MasterDataService {
+public class TeamStore {//extends AbstractStore<Team> {
 
 }

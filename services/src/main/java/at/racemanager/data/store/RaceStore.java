@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package at.racemanager.api.service;
+package at.racemanager.data.store;
 
-import at.racemanager.api.model.Championship;
 import javax.ejb.Stateless;
 
 /**
@@ -13,9 +12,6 @@ import javax.ejb.Stateless;
  * @author rolhai
  */
 @Stateless
-public class ChampionshipService {
+public class RaceStore {//extends AbstractStore<Race> {
 
-    public ChampionshipService startChampionship(Championship template) {
-        return null;
-    }
 }

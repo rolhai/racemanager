@@ -1,19 +1,23 @@
-package at.racemanager.api.model;
+package at.racemanager.api.entity;
 
 import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "countries")
-public class Country {
+@NamedQueries({
+    @NamedQuery(name = Country.FIND_ALL, query = "FROM Country")
+    ,
+    @NamedQuery(name = Country.COUNT_RESULTS, query = "SELECT COUNT(c) FROM Country c")
+})
+public class Country extends ApiEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public static final String FIND_ALL = "Country.findAll";
+
+    public static final String COUNT_RESULTS = "Country.countResults";
 
     /**
      * Country Codes - ISO 3166 Alpha2-Code c
@@ -23,14 +27,6 @@ public class Country {
     private String isoCode;
 
     private String name;
-
-    public Long getId() {
-        return id;
-    }
-
-    protected void setId(Long id) {
-        this.id = id;
-    }
 
     public String getIsoCode() {
         return isoCode;
