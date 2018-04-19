@@ -1,8 +1,8 @@
 package at.racemanager.api.resource;
 
 import at.racemanager.api.entity.Driver;
+import at.racemanager.api.entity.RmException;
 import at.racemanager.data.store.DriverStore;
-import java.util.List;
 import javax.ejb.Asynchronous;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -50,14 +50,12 @@ public class DriversResource {
     @Asynchronous
     public void getDriversAsync(@Suspended AsyncResponse asyncResponse) {
         logger.debug("get all drivers async");
-        //List<Driver> drivers = driverStore.findAll();
-        List<Driver> drivers = em.createNamedQuery("SELECT d FROM Driver d JOIN FETCH d.country").getResultList();
-        asyncResponse.resume(Response.ok(drivers).build());
+        asyncResponse.resume(Response.ok(driverStore.findAll()).build());
     }
 
     @GET
     @Path("{driverId}")
-    public Response getDriver(@PathParam("driverId") long driverId) {
+    public Response getDriver(@PathParam("driverId") long driverId) throws RmException {
         if (driverId <= 0) {
             throw new BadRequestException();
         }
@@ -66,7 +64,7 @@ public class DriversResource {
     }
 
     @POST
-    public Response createDriver(Driver driver) {
+    public Response createDriver(Driver driver) throws RmException {
         if (driver == null) {
             throw new BadRequestException();
         }
@@ -76,7 +74,7 @@ public class DriversResource {
     }
 
     @DELETE
-    public Response deleteDriver(@PathParam("driverId") long driverId) {
+    public Response deleteDriver(@PathParam("driverId") long driverId) throws RmException {
         if (driverId <= 0) {
             throw new BadRequestException();
         }

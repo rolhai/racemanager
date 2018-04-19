@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "drivers")
@@ -25,11 +27,15 @@ public class Driver extends ApiEntity {
     /**
      * unique
      */
+    @NotNull
+    @Size(min = 2, max = 100)
     private String firstname;
 
     /**
      * unique
      */
+    @NotNull
+    @Size(min = 2, max = 100)
     private String lastname;
 
     private LocalDate dateOfBirth;
@@ -37,6 +43,7 @@ public class Driver extends ApiEntity {
     @ManyToOne//(fetch = FetchType.LAZY)
     //@Fetch(FetchMode.JOIN)
     @JoinColumn(name = "countryId")
+    @NotNull
     private Country country;
 
     public String getFirstname() {

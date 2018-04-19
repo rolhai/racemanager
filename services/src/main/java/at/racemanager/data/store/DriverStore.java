@@ -5,8 +5,13 @@
  */
 package at.racemanager.data.store;
 
+import at.racemanager.api.entity.Country;
 import at.racemanager.api.entity.Driver;
+import at.racemanager.api.entity.RmException;
+import at.racemanager.api.entity.RmParameterException;
 import javax.ejb.Stateless;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -14,6 +19,8 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class DriverStore extends DataStore<Driver> {
+
+    public static final Logger logger = LogManager.getLogger(DriverStore.class);
 
     @Override
     protected String getFindAllNamedQuery() {
@@ -25,16 +32,28 @@ public class DriverStore extends DataStore<Driver> {
         return Driver.COUNT_RESULTS;
     }
 
-    /*
-    public Driver createDriver(Driver driver) {
-        Country country = em.merge(driver.getCountry());
+    @Override
+    public Driver create(Driver driver) throws RmException {
+        // a country must be provided to create a driver
+        if (driver == null) {
+            throw new RmParameterException("driver", "not provided");
+        } else if (driver.getCountry() == null) {
+            throw new RmParameterException("country", "not provided");
+        } else if (driver.getCountry().getId() == null
+                || driver.getCountry().getId() <= 0) {
+            throw new RmParameterException("country.id", "is invalid");
+        }
+        Country country = em.find(Country.class, driver.getCountry().getId());
+        if (country == null) {
+            throw new RmParameterException("country", "not found");
+        }
         driver.setCountry(country);
         em.persist(driver);
         logger.debug(String.format("created driver with id ", driver.getId()));
         return driver;
     }
-     */
- /*
+
+    /*
     List<Driver> drivers = new ArrayList<>();
 
     Country spain = new Country();

@@ -5,6 +5,8 @@
  */
 package at.racemanager.data.store;
 
+import at.racemanager.api.entity.RmException;
+import at.racemanager.api.entity.RmParameterException;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -28,24 +30,39 @@ public abstract class DataStore<E> {
         this.entityClass = (Class<E>) genericSuperclass.getActualTypeArguments()[0];
     }
 
-    public E create(final E entity) {
+    public E create(final E entity) throws RmException {
+        if (entity == null) {
+            throw new RmParameterException(entityClass.getSimpleName(), "not provided");
+        }
         em.persist(entity);
         return entity;
     }
 
-    public E update(final E entity) {
+    public E update(final E entity) throws RmException {
+        if (entity == null) {
+            throw new RmParameterException(entityClass.getSimpleName(), "not provided");
+        }
         return em.merge(entity);
     }
 
-    public void removeById(final Long id) {
+    public void removeById(final Long id) throws RmException {
+        if (id <= 0) {
+            throw new RmParameterException("id", "is invalid");
+        }
         remove(findById(id));
     }
 
-    public void remove(final E entity) {
+    public void remove(final E entity) throws RmException {
+        if (entity == null) {
+            throw new RmParameterException(entityClass.getSimpleName(), "not provided");
+        }
         em.remove(em.merge(entity));
     }
 
-    public E findById(final Long id) {
+    public E findById(final Long id) throws RmException {
+        if (id <= 0) {
+            throw new RmParameterException("id", "is invalid");
+        }
         return em.find(entityClass, id);
     }
 
