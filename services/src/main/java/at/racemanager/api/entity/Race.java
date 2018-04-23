@@ -3,23 +3,17 @@ package at.racemanager.api.entity;
 import java.time.LocalDate;
 import java.util.List;
 
-public class Race {
+public class Race extends ApiEntity {
 
-    private Long id;
+    public static final String FIND_ALL = "Race.findAll";
+
+    public static final String COUNT_RESULTS = "Race.countResults";
 
     private LocalDate raceDate;
 
     private Track track;
 
     private List<RaceResult> raceResults;
-
-    public Long getId() {
-        return id;
-    }
-
-    protected void setId(Long id) {
-        this.id = id;
-    }
 
     public LocalDate getRaceDate() {
         return raceDate;

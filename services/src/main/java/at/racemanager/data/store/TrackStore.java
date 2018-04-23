@@ -5,6 +5,7 @@
  */
 package at.racemanager.data.store;
 
+import at.racemanager.api.entity.Track;
 import javax.ejb.Stateless;
 
 /**
@@ -12,6 +13,16 @@ import javax.ejb.Stateless;
  * @author rolhai
  */
 @Stateless
-public class TrackStore {//extends AbstractStore<Track> {
+public class TrackStore extends DataStore<Track> {
+
+    @Override
+    protected String getCountResultNamedQuery() {
+        return Track.COUNT_RESULTS;
+    }
+
+    @Override
+    protected String getFindAllNamedQuery() {
+        return Track.FIND_ALL;
+    }
 
 }

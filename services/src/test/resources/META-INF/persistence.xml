@@ -9,6 +9,11 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>at.racemanager.api.entity.Country</class>
         <class>at.racemanager.api.entity.Driver</class>
+        <class>at.racemanager.api.entity.Track</class>
+        <class>at.racemanager.api.entity.Team</class>
+        <class>at.racemanager.api.entity.Race</class>
+        <class>at.racemanager.api.entity.RaceResult</class>
+        <class>at.racemanager.api.entity.Championship</class>
         <properties>
             <!-- Configuring JDBC properties -->
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;INIT=RUNSCRIPT FROM 'classpath:create.sql'"/>

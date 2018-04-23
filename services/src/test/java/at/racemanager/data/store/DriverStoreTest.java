@@ -26,15 +26,15 @@ public class DriverStoreTest extends StoreTest {
     public void getAllDrivers() {
         List<Driver> drivers = em.createQuery("FROM Driver", Driver.class).getResultList();
         Assert.assertNotNull(drivers);
-        Assert.assertEquals(3, drivers.size());
+        Assert.assertEquals(4, drivers.size());
 
-        Driver d1 = drivers.get(0);
-        Assert.assertNotNull(d1.getCountry());
+        Driver entity = drivers.get(0);
+        Assert.assertNotNull(entity.getCountry());
     }
 
     @Test
     public void countAllDrivers() {
         long count = (Long) em.createQuery("SELECT COUNT(d) FROM Driver d").getSingleResult();
-        Assert.assertEquals(3, count);
+        Assert.assertEquals(4, count);
     }
 }

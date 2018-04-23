@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "countries")
@@ -24,8 +26,12 @@ public class Country extends ApiEntity {
      *
      * unique
      */
+    @NotNull
+    @Size(min = 2, max = 2)
     private String isoCode;
 
+    @NotNull
+    @Size(min = 2, max = 100)
     private String name;
 
     public String getIsoCode() {

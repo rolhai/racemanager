@@ -4,10 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-public class Team {
+@Entity
+@Table(name = "teams")
+@NamedQueries({
+    @NamedQuery(name = Team.FIND_ALL, query = "FROM Team")
+    ,
+    @NamedQuery(name = Team.COUNT_RESULTS, query = "SELECT COUNT(t) FROM Team t")
+})
+public class Team extends ApiEntity {
 
-    private Long id;
+    public static final String FIND_ALL = "Team.findAll";
+
+    public static final String COUNT_RESULTS = "Team.countResults";
 
     /**
      * unique
@@ -17,21 +36,28 @@ public class Team {
     /**
      * unique
      */
+    @NotNull
+    @Size(min = 2, max = 100)
     private String name;
 
+    @NotNull
+    @Size(min = 2, max = 100)
     private String motor;
 
+    @OneToMany
+    @JoinTable(
+            name = "teams_drivers",
+            joinColumns = {
+                @JoinColumn(name = "teamId", referencedColumnName = "id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "driverId", referencedColumnName = "id", unique = true)}
+    )
     private List<Driver> drivers;
 
+    @ManyToOne
+    @JoinColumn(name = "countryId")
+    @NotNull
     private Country country;
-
-    public Long getId() {
-        return id;
-    }
-
-    protected void setId(Long id) {
-        this.id = id;
-    }
 
     public String getMotor() {
         return motor;

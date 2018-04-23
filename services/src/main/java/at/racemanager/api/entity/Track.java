@@ -1,25 +1,39 @@
 package at.racemanager.api.entity;
 
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-public class Track {
+@Entity
+@Table(name = "tracks")
+@NamedQueries({
+    @NamedQuery(name = Track.FIND_ALL, query = "FROM Track")
+    ,
+    @NamedQuery(name = Track.COUNT_RESULTS, query = "SELECT COUNT(t) FROM Track t")
+})
+public class Track extends ApiEntity {
 
-    private Long id;
+    public static final String FIND_ALL = "Track.findAll";
+
+    public static final String COUNT_RESULTS = "Track.countResults";
 
     /**
      * unique
      */
+    @NotNull
+    @Size(min = 2, max = 100)
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "countryId")
+    @NotNull
     private Country country;
-
-    public Long getId() {
-        return id;
-    }
-
-    protected void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
