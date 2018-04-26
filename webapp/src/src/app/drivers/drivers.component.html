@@ -1,0 +1,15 @@
+<h3>{{title}}</h3>
+<ul class="drivers">
+    <li *ngFor="let driver of drivers">
+        <a routerLink="/driver/{{driver.id}}">
+            <span class="badge">{{driver.id}}</span> {{driver.lastname}}
+        </a>
+    </li>
+</ul>
+<!--
+<ul class="drivers">
+    <li *ngFor="let driver of drivers" (click)="onSelect(driver)">
+        <span class="badge">{{driver.id}}</span> {{driver.lastname}}
+    </li>
+</ul>
+-->
