@@ -1,72 +1,84 @@
 DELETE FROM `countries`;
 
-INSERT INTO `countries` (`id`, `name`, `isoCode`)
-VALUES (1, 'Spain', 'ES');
+INSERT INTO `countries` (`name`, `isoCode`)
+VALUES ('Spain', 'ES');
 
-INSERT INTO `countries` (`id`,`name`,`isoCode`)
-VALUES (2, 'Germany', 'DE');
+INSERT INTO `countries` (`name`,`isoCode`)
+VALUES ('Germany', 'DE');
 
-INSERT INTO `countries` (`id`,`name`,`isoCode`)
-VALUES (3, 'Finland', 'FI');
+INSERT INTO `countries` (`name`,`isoCode`)
+VALUES ('Finland', 'FI');
 
-INSERT INTO `countries` (`id`,`name`,`isoCode`)
-VALUES (4, 'Italy', 'IT');
+INSERT INTO `countries` (`name`,`isoCode`)
+VALUES ('Italy', 'IT');
 
-INSERT INTO `countries` (`id`,`name`,`isoCode`)
-VALUES (5, 'Austria', 'AT');
+INSERT INTO `countries` (`name`,`isoCode`)
+VALUES ('Austria', 'AT');
 
-INSERT INTO `countries` (`id`,`name`,`isoCode`)
-VALUES (6, 'Great Britain', 'GB');
+INSERT INTO `countries` (`name`,`isoCode`)
+VALUES ('Great Britain', 'GB');
 
-INSERT INTO `countries` (`id`,`name`,`isoCode`)
-VALUES (7, 'Netherlands', 'NL');
+INSERT INTO `countries` (`name`,`isoCode`)
+VALUES ('Netherlands', 'NL');
+
+INSERT INTO `countries` (`name`,`isoCode`)
+VALUES ('Australia', 'AU');
 
 DELETE FROM `drivers`;
 
-INSERT INTO `drivers` (`id`,`firstname`,`lastname`,`dateOfBirth`,`countryId`)
-VALUES (1, 'Michael', 'Schumacher', null, 2);
+INSERT INTO `drivers` (`firstname`,`lastname`,`dateOfBirth`,`countryId`)
+VALUES ('Michael', 'Schumacher', null, (SELECT `id` FROM `countries` where `isoCode` = 'DE'));
 
-INSERT INTO `drivers` (`id`,`firstname`,`lastname`,`dateOfBirth`,`countryId`)
-VALUES (2, 'Mika', 'Hakkinen', null, 3);
+INSERT INTO `drivers` (`firstname`,`lastname`,`dateOfBirth`,`countryId`)
+VALUES ('Mika', 'Hakkinen', null, (SELECT `id` FROM `countries` where `isoCode` = 'FI'));
 
-INSERT INTO `drivers` (`id`,`firstname`,`lastname`,`dateOfBirth`,`countryId`)
-VALUES (3, 'Fernando', 'Alonso', null, 1);
+INSERT INTO `drivers` (`firstname`,`lastname`,`dateOfBirth`,`countryId`)
+VALUES ('Fernando', 'Alonso', null, (SELECT `id` FROM `countries` where `isoCode` = 'ES'));
 
-INSERT INTO `drivers` (`id`,`firstname`,`lastname`,`dateOfBirth`,`countryId`)
-VALUES (4, 'Max', 'Verstappen', null, 7);
+INSERT INTO `drivers` (`firstname`,`lastname`,`dateOfBirth`,`countryId`)
+VALUES ('Max', 'Verstappen', null, (SELECT `id` FROM `countries` where `isoCode` = 'NL'));
+
+INSERT INTO `drivers` (`firstname`,`lastname`,`dateOfBirth`,`countryId`)
+VALUES ('Daniel', 'Ricciardo', null, (SELECT `id` FROM `countries` where `isoCode` = 'AU'));
 
 DELETE FROM `tracks`;
 
-INSERT INTO `tracks` (`id`, `name`, `countryId`)
-VALUES (1, 'Hockenheim', 2);
+INSERT INTO `tracks` (`name`, `countryId`)
+VALUES ('Hockenheim', (SELECT `id` FROM `countries` where `isoCode` = 'DE'));
 
-INSERT INTO `tracks` (`id`, `name`, `countryId`)
-VALUES (2, 'Barcelona', 1);
+INSERT INTO `tracks` ( `name`, `countryId`)
+VALUES ('Barcelona', (SELECT `id` FROM `countries` where `isoCode` = 'ES'));
 
-INSERT INTO `tracks` (`id`, `name`, `countryId`)
-VALUES (3, 'Monza', 4);
+INSERT INTO `tracks` ( `name`, `countryId`)
+VALUES ('Monza', (SELECT `id` FROM `countries` where `isoCode` = 'IT'));
 
 DELETE FROM `teams`;
 
-INSERT INTO `teams` (`id`, `year`, `name`, `motor`, `countryId`)
-VALUES (1, 2018, 'Red Bull Racing', 'Renault', 5);
+INSERT INTO `teams` (`year`, `name`, `motor`, `countryId`)
+VALUES (2017, 'Red Bull Racing', 'Renault', (SELECT `id` FROM `countries` where `isoCode` = 'AT'));
 
-INSERT INTO `teams` (`id`, `year`, `name`, `motor`, `countryId`)
-VALUES (2, 2017, 'McLaren', 'Honda', 6);
+INSERT INTO `teams` (`year`, `name`, `motor`, `countryId`)
+VALUES (2017, 'McLaren', 'Honda', (SELECT `id` FROM `countries` where `isoCode` = 'GB'));
 
-INSERT INTO `teams` (`id`, `year`, `name`, `motor`, `countryId`)
-VALUES (3, 2018, 'McLaren', 'Renault', 6);
+INSERT INTO `teams` (`year`, `name`, `motor`, `countryId`)
+VALUES (2018, 'McLaren', 'Renault', (SELECT `id` FROM `countries` where `isoCode` = 'GB'));
 
 DELETE FROM `teams_drivers`;
 
 INSERT INTO `teams_drivers` (`teamId`, `driverId`)
-VALUES (1, 4);
+VALUES (
+  (SELECT `id` FROM `teams` WHERE `year` = 2017 and `name` = 'Red Bull Racing'),
+  (SELECT `id` FROM `drivers` WHERE `lastname` = 'Verstappen'));
 
 INSERT INTO `teams_drivers` (`teamId`, `driverId`)
-VALUES (2, 3);
+VALUES (
+  (SELECT `id` FROM `teams` WHERE `year` = 2017 and `name` = 'McLaren'),
+  (SELECT `id` FROM `drivers` WHERE `lastname` = 'Alonso'));
 
 INSERT INTO `teams_drivers` (`teamId`, `driverId`)
-VALUES (3, 3);
+VALUES (
+  (SELECT `id` FROM `teams` WHERE `year` = 2018 and `name` = 'McLaren'),
+  (SELECT `id` FROM `drivers` WHERE `lastname` = 'Alonso'));
 
 
 

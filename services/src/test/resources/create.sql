@@ -1,5 +1,5 @@
 CREATE TABLE `countries` (
-  `id` bigint NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `isoCode` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
@@ -8,7 +8,7 @@ CREATE TABLE `countries` (
 );
 
 CREATE TABLE `drivers` (
-  `id` bigint NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `firstname` varchar(100) NOT NULL,
   `lastname` varchar(100) NOT NULL,
   `dateOfBirth` date DEFAULT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE `drivers` (
 );
 
 CREATE TABLE `tracks` (
-  `id` bigint NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `countryId` bigint NOT NULL,
   PRIMARY KEY (`id`),
@@ -26,7 +26,7 @@ CREATE TABLE `tracks` (
 );
 
 CREATE TABLE `teams` (
-  `id` bigint NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `year` int(4) NOT NULL,
   `name` varchar(100) NOT NULL,
   `motor` varchar(100) NOT NULL,
