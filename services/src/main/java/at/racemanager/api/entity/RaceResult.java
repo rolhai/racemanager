@@ -16,11 +16,20 @@
 package at.racemanager.api.entity;
 
 import java.time.LocalTime;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-public class RaceResult {
+@Entity
+@Table(name = "raceresults")
+public class RaceResult extends ApiEntity {
 
-    private Long id;
-
+    @ManyToOne
+    @JoinColumn(name = "driverId")
+    @NotNull
     private Driver driver;
 
     private int qualifyingPosition;
@@ -31,12 +40,16 @@ public class RaceResult {
 
     private LocalTime raceLapTime;
 
-    public Long getId() {
-        return id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "raceId")
+    private Race race;
+
+    public Race getRace() {
+        return race;
     }
 
-    protected void setId(Long id) {
-        this.id = id;
+    public void setRace(Race race) {
+        this.race = race;
     }
 
     public Driver getDriver() {
@@ -81,6 +94,6 @@ public class RaceResult {
 
     @Override
     public String toString() {
-        return "RaceResult{" + "id=" + id + ", driver=" + driver + ", qualifyingPosition=" + qualifyingPosition + ", qualifyingLapTime=" + qualifyingLapTime + ", racePosition=" + racePosition + ", raceLapTime=" + raceLapTime + '}';
+        return "RaceResult{" + "driver=" + driver + ", qualifyingPosition=" + qualifyingPosition + ", qualifyingLapTime=" + qualifyingLapTime + ", racePosition=" + racePosition + ", raceLapTime=" + raceLapTime + '}';
     }
 }

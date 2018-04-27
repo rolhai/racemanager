@@ -16,10 +16,20 @@
 package at.racemanager.api.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-/*
 @Entity
 @Table(name = "races")
 @NamedQueries({
@@ -27,7 +37,6 @@ import javax.validation.constraints.NotNull;
     ,
     @NamedQuery(name = Race.COUNT_RESULTS, query = "SELECT COUNT(r) FROM Race r")
 })
- */
 public class Race extends ApiEntity {
 
     public static final String FIND_ALL = "Race.findAll";
@@ -37,10 +46,41 @@ public class Race extends ApiEntity {
     @NotNull
     private LocalDate raceDate;
 
+    @ManyToOne
+    @JoinColumn(name = "trackId")
     @NotNull
     private Track track;
 
+    @OneToMany(
+            mappedBy = "race",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<RaceResult> raceResults;
+
+    public void addRaceResult(RaceResult raceresult) {
+        if (raceResults == null) {
+            raceResults = new ArrayList<>();
+        }
+        if (raceResults.contains(raceresult)) {
+            return;
+        }
+        raceResults.add(raceresult);
+        raceresult.setRace(this);
+    }
+
+    public void removeRaceResult(Long id) {
+        if (raceResults == null) {
+            return;
+        }
+        Optional<RaceResult> filterResult = raceResults.stream().filter(d -> Objects.equals(d.getId(), id)).findAny();
+        if (filterResult == null || !filterResult.isPresent()) {
+            return;
+        }
+        RaceResult raceResult = filterResult.get();
+        raceResults.remove(raceResult);
+        raceResult.setRace(null);
+    }
 
     public LocalDate getRaceDate() {
         return raceDate;

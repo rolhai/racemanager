@@ -41,3 +41,24 @@ CREATE TABLE `teams_drivers` (
     UNIQUE KEY `team_driver_UNIQUE` (`teamId`,`driverId`)
 );
 
+CREATE TABLE `races` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `raceDate` date NOT NULL,
+  `trackId` bigint NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `raceresults` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `driverId` bigint NOT NULL,
+  `qualifyingPosition` int(2) DEFAULT NULL,
+  `qualifyingLapTime` time DEFAULT NULL,
+  `racePosition` int(2) DEFAULT NULL,
+  `raceLapTime` time DEFAULT NULL,
+  `raceId` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `race_UNIQUE` (`raceId`,`driverId`)
+);
+
+
+

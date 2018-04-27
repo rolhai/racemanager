@@ -15,15 +15,19 @@
  */
 package at.racemanager.data.store;
 
+import at.racemanager.api.entity.Driver;
 import at.racemanager.api.entity.Race;
+import at.racemanager.api.entity.RaceResult;
 import at.racemanager.api.entity.Track;
 import static at.racemanager.data.store.StoreTest.em;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
+import org.junit.Test;
 
 /**
  *
@@ -33,7 +37,7 @@ public class RaceStoreTest extends StoreTest {
 
     private static final Logger logger = LogManager.getLogger(RaceStoreTest.class);
 
-    //@Test
+    @Test
     public void testRaces() {
         int initSize = 0;
 
@@ -54,6 +58,21 @@ public class RaceStoreTest extends StoreTest {
         Assert.assertNotNull(entity);
         Assert.assertNotNull(entity.getId());
         logger.info(entity.toString());
+
+        RaceResult raceResult = new RaceResult();
+        Driver driver = em.createQuery("SELECT d FROM Driver d WHERE d.lastname = :lastname", Driver.class)
+                .setParameter("lastname", "Verstappen")
+                .getSingleResult();
+        raceResult.setDriver(driver);
+        raceResult.setQualifyingPosition(3);
+        raceResult.setQualifyingLapTime(LocalTime.of(1, 47, 17));
+        raceResult.setRacePosition(2);
+        raceResult.setRaceLapTime(LocalTime.of(1, 10, 23));
+        entity.addRaceResult(raceResult);
+        em.getTransaction().begin();
+        em.persist(raceResult);
+        em.getTransaction().commit();
+        logger.info(raceResult.toString());
 
         entities = em.createQuery("FROM Race", Race.class).getResultList();
         Assert.assertNotNull(entities);
