@@ -17,7 +17,6 @@ package at.racemanager.data.store;
 
 import at.racemanager.api.entity.Country;
 import at.racemanager.api.entity.Driver;
-import static at.racemanager.data.store.StoreTest.em;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

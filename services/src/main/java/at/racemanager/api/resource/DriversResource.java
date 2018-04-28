@@ -89,10 +89,12 @@ public class DriversResource {
     }
 
     @DELETE
+    @Path("{driverId")
     public Response deleteDriver(@PathParam("driverId") long driverId) throws RmException {
         if (driverId <= 0) {
             throw new BadRequestException();
         }
+        logger.debug(String.format("remove driver with id %d", driverId));
         driverStore.removeById(driverId);
         return Response.ok().build();
     }

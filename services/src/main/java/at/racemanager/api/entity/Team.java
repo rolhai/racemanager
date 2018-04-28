@@ -61,7 +61,7 @@ public class Team extends ApiEntity {
 
     @OneToMany
     @JoinTable(
-            name = "teams_drivers",
+            name = "teamdrivers",
             joinColumns = {
                 @JoinColumn(name = "teamId", referencedColumnName = "id")},
             inverseJoinColumns = {

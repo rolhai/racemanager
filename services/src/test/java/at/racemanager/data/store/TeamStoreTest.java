@@ -18,12 +18,13 @@ package at.racemanager.data.store;
 import at.racemanager.api.entity.Country;
 import at.racemanager.api.entity.Driver;
 import at.racemanager.api.entity.Team;
-import static at.racemanager.data.store.StoreTest.em;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+
+import static at.racemanager.data.store.StoreTest.em;
 
 /**
  *
@@ -42,7 +43,7 @@ public class TeamStoreTest extends StoreTest {
         Assert.assertEquals(initSize, entities.size());
 
         Team entity = new Team();
-        entity.setYear(2018);
+        entity.setYear((short) 2018);
         entity.setName("Red Bull Racing");
         entity.setMotor("Renault");
         Country country = em.createQuery("SELECT c FROM Country c WHERE c.isoCode = :isoCode", Country.class)

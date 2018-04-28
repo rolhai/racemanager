@@ -63,23 +63,19 @@ VALUES (2017, 'McLaren', 'Honda', (SELECT `id` FROM `countries` where `isoCode` 
 INSERT INTO `teams` (`year`, `name`, `motor`, `countryId`)
 VALUES (2018, 'McLaren', 'Renault', (SELECT `id` FROM `countries` where `isoCode` = 'GB'));
 
-DELETE FROM `teams_drivers`;
+DELETE FROM `teamdrivers`;
 
-INSERT INTO `teams_drivers` (`teamId`, `driverId`)
+INSERT INTO `teamdrivers` (`teamId`, `driverId`)
 VALUES (
   (SELECT `id` FROM `teams` WHERE `year` = 2017 and `name` = 'Red Bull Racing'),
   (SELECT `id` FROM `drivers` WHERE `lastname` = 'Verstappen'));
 
-INSERT INTO `teams_drivers` (`teamId`, `driverId`)
+INSERT INTO `teamdrivers` (`teamId`, `driverId`)
 VALUES (
   (SELECT `id` FROM `teams` WHERE `year` = 2017 and `name` = 'McLaren'),
   (SELECT `id` FROM `drivers` WHERE `lastname` = 'Alonso'));
 
-INSERT INTO `teams_drivers` (`teamId`, `driverId`)
+INSERT INTO `teamdrivers` (`teamId`, `driverId`)
 VALUES (
   (SELECT `id` FROM `teams` WHERE `year` = 2018 and `name` = 'McLaren'),
   (SELECT `id` FROM `drivers` WHERE `lastname` = 'Alonso'));
-
-
-
-

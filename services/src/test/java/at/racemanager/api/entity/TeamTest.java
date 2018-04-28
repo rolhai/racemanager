@@ -56,12 +56,13 @@ public class TeamTest {
     public void removeDrivers() {
         Team team = new Team();
         team.setDrivers(testdataBuilder.getDrivers());
-
         assertNotNull(team.getDrivers());
-        int countDrivers = team.getDrivers().size();
 
+        int initSize = team.getDrivers().size();
         team.removeDriver(2l);
-        Assert.assertEquals(countDrivers - 1, team.getDrivers().size());
+        int afterRemoveSize = team.getDrivers().size();
+
+        Assert.assertEquals(initSize - 1, afterRemoveSize);
     }
 
     /**
@@ -70,7 +71,6 @@ public class TeamTest {
     @Test
     public void removeDriverFromEmptyList() {
         Team team = new Team();
-
         assertNull(team.getDrivers());
         team.removeDriver(1l);
     }
