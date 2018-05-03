@@ -47,16 +47,16 @@ public class DriverStore extends DataStore<Driver> {
     public Driver create(Driver driver) throws RmException {
         // a country must be provided to create a driver
         if (driver == null) {
-            throw new RmParameterException("driver", "not provided");
+            throw new RmParameterException(Driver.class, StoreError.NOT_PROVIDED);
         } else if (driver.getCountry() == null) {
-            throw new RmParameterException("country", "not provided");
+            throw new RmParameterException(Country.class, StoreError.NOT_PROVIDED);
         } else if (driver.getCountry().getId() == null
                 || driver.getCountry().getId() <= 0) {
-            throw new RmParameterException("country.id", "is invalid");
+            throw new RmParameterException("country.id", StoreError.IS_INVALID);
         }
         Country country = em.find(Country.class, driver.getCountry().getId());
         if (country == null) {
-            throw new RmParameterException("country", "not found");
+            throw new RmParameterException(Country.class, StoreError.NOT_FOUND);
         }
         driver.setCountry(country);
         em.persist(driver);

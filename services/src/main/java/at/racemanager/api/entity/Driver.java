@@ -32,12 +32,16 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = Driver.FIND_ALL, query = "FROM Driver") // JOIN d.country
     ,
     @NamedQuery(name = Driver.COUNT_RESULTS, query = "SELECT COUNT(d) FROM Driver d")
+    ,
+    @NamedQuery(name = Driver.FIND_BY_LASTNAME, query = "SELECT d FROM Driver d WHERE d.lastname = :lastname")
 })
 public class Driver extends ApiEntity {
 
     public static final String FIND_ALL = "Driver.findAll";
 
     public static final String COUNT_RESULTS = "Driver.countResults";
+
+    public static final String FIND_BY_LASTNAME = "Driver.findByLastname";
 
     /**
      * unique

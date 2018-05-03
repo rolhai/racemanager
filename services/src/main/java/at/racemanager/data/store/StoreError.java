@@ -13,19 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package at.racemanager.api.entity;
+package at.racemanager.data.store;
 
 /**
  *
  * @author rolhai
  */
-public class RmParameterException extends RmException {
+public class StoreError {
 
-    public RmParameterException(Class cls, String message) {
-        super(cls == null ? "" : cls.getSimpleName() + " " + message);
-    }
+    protected static final String NOT_PROVIDED = "not provided";
 
-    public RmParameterException(String parameter, String message) {
-        super(parameter + " " + message);
-    }
+    protected static final String IS_INVALID = "is invalid";
+
+    protected static final String NOT_FOUND = "not found";
 }

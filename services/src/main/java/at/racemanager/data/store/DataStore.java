@@ -43,7 +43,7 @@ public abstract class DataStore<E> {
 
     public E create(final E entity) throws RmException {
         if (entity == null) {
-            throw new RmParameterException(entityClass.getSimpleName(), "not provided");
+            throw new RmParameterException(entityClass, StoreError.NOT_PROVIDED);
         }
         em.persist(entity);
         return entity;
@@ -51,28 +51,28 @@ public abstract class DataStore<E> {
 
     public E update(final E entity) throws RmException {
         if (entity == null) {
-            throw new RmParameterException(entityClass.getSimpleName(), "not provided");
+            throw new RmParameterException(entityClass, StoreError.NOT_PROVIDED);
         }
         return em.merge(entity);
     }
 
     public void removeById(final Long id) throws RmException {
         if (id <= 0) {
-            throw new RmParameterException("id", "is invalid");
+            throw new RmParameterException("id", StoreError.IS_INVALID);
         }
         remove(findById(id));
     }
 
     public void remove(final E entity) throws RmException {
         if (entity == null) {
-            throw new RmParameterException(entityClass.getSimpleName(), "not provided");
+            throw new RmParameterException(entityClass, StoreError.NOT_PROVIDED);
         }
         em.remove(em.merge(entity));
     }
 
     public E findById(final Long id) throws RmException {
         if (id <= 0) {
-            throw new RmParameterException("id", "is invalid");
+            throw new RmParameterException("id", StoreError.IS_INVALID);
         }
         return em.find(entityClass, id);
     }

@@ -19,7 +19,6 @@ import at.racemanager.api.entity.Driver;
 import at.racemanager.api.entity.Race;
 import at.racemanager.api.entity.RaceResult;
 import at.racemanager.api.entity.Track;
-import static at.racemanager.data.store.StoreTest.em;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
@@ -28,6 +27,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+
+import static at.racemanager.data.store.StoreTest.em;
 
 /**
  *
@@ -41,13 +42,13 @@ public class RaceStoreTest extends StoreTest {
     public void testRaces() {
         int initSize = 0;
 
-        List<Race> entities = em.createQuery("FROM Race", Race.class).getResultList();
+        List<Race> entities = em.createNamedQuery(Race.FIND_ALL, Race.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize, entities.size());
 
         Race entity = new Race();
         entity.setRaceDate(LocalDate.of(2018, Month.MARCH, 17));
-        Track track = em.createQuery("SELECT t FROM Track t WHERE t.name = :name", Track.class)
+        Track track = em.createNamedQuery(Track.FIND_BY_NAME, Track.class)
                 .setParameter("name", "Monza")
                 .getSingleResult();
         entity.setTrack(track);
@@ -60,7 +61,7 @@ public class RaceStoreTest extends StoreTest {
         logger.info(entity.toString());
 
         RaceResult raceResult = new RaceResult();
-        Driver driver = em.createQuery("SELECT d FROM Driver d WHERE d.lastname = :lastname", Driver.class)
+        Driver driver = em.createNamedQuery(Driver.FIND_BY_LASTNAME, Driver.class)
                 .setParameter("lastname", "Verstappen")
                 .getSingleResult();
         raceResult.setDriver(driver);
@@ -74,7 +75,7 @@ public class RaceStoreTest extends StoreTest {
         em.getTransaction().commit();
         logger.info(raceResult.toString());
 
-        entities = em.createQuery("FROM Race", Race.class).getResultList();
+        entities = em.createNamedQuery(Race.FIND_ALL, Race.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize + 1, entities.size());
 
@@ -84,7 +85,7 @@ public class RaceStoreTest extends StoreTest {
         em.getTransaction().commit();
         logger.info(entity.toString());
 
-        entities = em.createQuery("FROM Race", Race.class).getResultList();
+        entities = em.createNamedQuery(Race.FIND_ALL, Race.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize + 1, entities.size());
 
@@ -92,7 +93,7 @@ public class RaceStoreTest extends StoreTest {
         em.remove(entity);
         em.getTransaction().commit();
 
-        entities = em.createQuery("FROM Race", Race.class).getResultList();
+        entities = em.createNamedQuery(Race.FIND_ALL, Race.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize, entities.size());
     }

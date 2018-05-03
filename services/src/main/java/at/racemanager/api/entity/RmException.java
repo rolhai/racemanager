@@ -15,11 +15,13 @@
  */
 package at.racemanager.api.entity;
 
+import javax.ws.rs.WebApplicationException;
+
 /**
  *
  * @author rolhai
  */
-public abstract class RmException extends Exception {
+public abstract class RmException extends WebApplicationException {
 
     public RmException(String message) {
         super(message);

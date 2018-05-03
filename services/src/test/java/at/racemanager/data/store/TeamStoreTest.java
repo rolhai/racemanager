@@ -38,7 +38,7 @@ public class TeamStoreTest extends StoreTest {
     public void testTeams() {
         int initSize = 3;
 
-        List<Team> entities = em.createQuery("FROM Team", Team.class).getResultList();
+        List<Team> entities = em.createNamedQuery(Team.FIND_ALL, Team.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize, entities.size());
 
@@ -46,11 +46,11 @@ public class TeamStoreTest extends StoreTest {
         entity.setYear((short) 2018);
         entity.setName("Red Bull Racing");
         entity.setMotor("Renault");
-        Country country = em.createQuery("SELECT c FROM Country c WHERE c.isoCode = :isoCode", Country.class)
+        Country country = em.createNamedQuery(Country.FIND_BY_ISOCODE, Country.class)
                 .setParameter("isoCode", "AT")
                 .getSingleResult();
         entity.setCountry(country);
-        Driver driver = em.createQuery("SELECT d FROM Driver d WHERE d.lastname = :lastname", Driver.class)
+        Driver driver = em.createNamedQuery(Driver.FIND_BY_LASTNAME, Driver.class)
                 .setParameter("lastname", "Verstappen")
                 .getSingleResult();
         entity.addDriver(driver);
@@ -63,12 +63,12 @@ public class TeamStoreTest extends StoreTest {
         logger.info(entity.toString());
         logger.info(entity.toString());
 
-        entities = em.createQuery("FROM Team", Team.class).getResultList();
+        entities = em.createNamedQuery(Team.FIND_ALL, Team.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize + 1, entities.size());
 
         entity.setName("Goldstone");
-        Driver driver2 = em.createQuery("SELECT d FROM Driver d WHERE d.lastname = :lastname", Driver.class)
+        Driver driver2 = em.createNamedQuery(Driver.FIND_BY_LASTNAME, Driver.class)
                 .setParameter("lastname", "Ricciardo")
                 .getSingleResult();
         entity.addDriver(driver2);
@@ -78,7 +78,7 @@ public class TeamStoreTest extends StoreTest {
         logger.info(entity.toString());
         logger.info(entity.toString());
 
-        entities = em.createQuery("FROM Team", Team.class).getResultList();
+        entities = em.createNamedQuery(Team.FIND_ALL, Team.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize + 1, entities.size());
 
@@ -86,7 +86,7 @@ public class TeamStoreTest extends StoreTest {
         em.remove(entity);
         em.getTransaction().commit();
 
-        entities = em.createQuery("FROM Team", Team.class).getResultList();
+        entities = em.createNamedQuery(Team.FIND_ALL, Team.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize, entities.size());
     }

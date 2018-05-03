@@ -15,8 +15,13 @@
  */
 package at.racemanager.data.store;
 
+import at.racemanager.api.entity.Driver;
+import at.racemanager.api.entity.RmEntityNotFoundException;
+import at.racemanager.api.entity.RmException;
+import at.racemanager.api.entity.RmParameterException;
 import at.racemanager.api.entity.Team;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 /**
  * crud-operations for teams
@@ -26,6 +31,9 @@ import javax.ejb.Stateless;
 @Stateless
 public class TeamStore extends DataStore<Team> {
 
+    @Inject
+    private DriverStore driverStore;
+
     @Override
     protected String getCountResultNamedQuery() {
         return Team.COUNT_RESULTS;
@@ -34,6 +42,25 @@ public class TeamStore extends DataStore<Team> {
     @Override
     protected String getFindAllNamedQuery() {
         return Team.FIND_ALL;
+    }
+
+    public Team addDriver(long teamId, long driverId) throws RmException {
+        if (teamId <= 0) {
+            throw new RmParameterException("teamId", StoreError.IS_INVALID);
+        }
+        if (driverId <= 0) {
+            throw new RmParameterException("driverId", StoreError.IS_INVALID);
+        }
+        Team team = findById(teamId);
+        if (team == null) {
+            throw new RmEntityNotFoundException(Team.class, StoreError.NOT_FOUND);
+        }
+        Driver driver = driverStore.findById(driverId);
+        if (driver == null) {
+            throw new RmEntityNotFoundException(Driver.class, StoreError.NOT_FOUND);
+        }
+        team.addDriver(driver);
+        return update(team);
     }
 
 }

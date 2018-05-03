@@ -31,12 +31,16 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = Track.FIND_ALL, query = "FROM Track")
     ,
     @NamedQuery(name = Track.COUNT_RESULTS, query = "SELECT COUNT(t) FROM Track t")
+    ,
+    @NamedQuery(name = Track.FIND_BY_NAME, query = "SELECT t FROM Track t WHERE t.name = :name")
 })
 public class Track extends ApiEntity {
 
     public static final String FIND_ALL = "Track.findAll";
 
     public static final String COUNT_RESULTS = "Track.countResults";
+
+    public static final String FIND_BY_NAME = "Track.findByName";
 
     /**
      * unique

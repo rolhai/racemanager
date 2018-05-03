@@ -22,8 +22,6 @@ import javax.ejb.Asynchronous;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -44,44 +42,41 @@ import org.apache.logging.log4j.Logger;
 @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
 @RequestScoped
 @Interceptors(ResourceExceptionInterceptor.class)
-public class DriversResource {
+public class DriverResource {
 
-    private static final Logger logger = LogManager.getLogger(DriversResource.class);
+    private static final Logger logger = LogManager.getLogger(DriverResource.class);
 
     @Inject
     private DriverStore driverStore;
 
-    @PersistenceContext
-    protected EntityManager em;
-
     @GET
-    public Response getDrivers() {
-        logger.debug("get all drivers sync");
+    public Response findAll() {
+        logger.debug("find all drivers sync");
         return Response.ok(driverStore.findAll()).build();
     }
 
     @GET
     @Path("async")
     @Asynchronous
-    public void getDriversAsync(@Suspended AsyncResponse asyncResponse) {
-        logger.debug("get all drivers async");
+    public void findAllAsync(@Suspended AsyncResponse asyncResponse) {
+        logger.debug("find all drivers async");
         asyncResponse.resume(Response.ok(driverStore.findAll()).build());
     }
 
     @GET
-    @Path("{driverId}")
-    public Response getDriver(@PathParam("driverId") long driverId) throws RmException {
-        if (driverId <= 0) {
-            throw new BadRequestException();
+    @Path("{id}")
+    public Response findById(@PathParam("id") long id) throws RmException {
+        if (id <= 0) {
+            throw new BadRequestException(ResourceError.NO_ID);
         }
-        logger.debug(String.format("get driver with id %d", driverId));
-        return Response.ok(driverStore.findById(driverId)).build();
+        logger.debug(String.format("find driver with id %d", id));
+        return Response.ok(driverStore.findById(id)).build();
     }
 
     @POST
-    public Response createDriver(Driver driver) throws RmException {
+    public Response create(Driver driver) throws RmException {
         if (driver == null) {
-            throw new BadRequestException();
+            throw new BadRequestException(ResourceError.NO_DRIVER);
         }
         logger.debug(String.format("create driver %s", driver.toString()));
         Driver createdDriver = driverStore.create(driver);
@@ -89,13 +84,13 @@ public class DriversResource {
     }
 
     @DELETE
-    @Path("{driverId")
-    public Response deleteDriver(@PathParam("driverId") long driverId) throws RmException {
-        if (driverId <= 0) {
-            throw new BadRequestException();
+    @Path("{id")
+    public Response removeById(@PathParam("id") long id) throws RmException {
+        if (id <= 0) {
+            throw new BadRequestException(ResourceError.NO_ID);
         }
-        logger.debug(String.format("remove driver with id %d", driverId));
-        driverStore.removeById(driverId);
+        logger.debug(String.format("remove driver with id %d", id));
+        driverStore.removeById(id);
         return Response.ok().build();
     }
 }

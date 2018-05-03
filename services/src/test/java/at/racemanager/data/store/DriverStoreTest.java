@@ -35,14 +35,14 @@ public class DriverStoreTest extends StoreTest {
     public void testDrivers() {
         int initSize = 5;
 
-        List<Driver> entities = em.createQuery("FROM Driver", Driver.class).getResultList();
+        List<Driver> entities = em.createNamedQuery(Driver.FIND_ALL, Driver.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize, entities.size());
 
         Driver entity = new Driver();
         entity.setFirstname("Alexander");
         entity.setLastname("Wurz");
-        Country country = em.createQuery("SELECT c FROM Country c WHERE c.isoCode = :isoCode", Country.class)
+        Country country = em.createNamedQuery(Country.FIND_BY_ISOCODE, Country.class)
                 .setParameter("isoCode", "AT")
                 .getSingleResult();
         entity.setCountry(country);
@@ -54,7 +54,7 @@ public class DriverStoreTest extends StoreTest {
         Assert.assertNotNull(entity.getId());
         logger.info(entity.toString());
 
-        entities = em.createQuery("FROM Driver", Driver.class).getResultList();
+        entities = em.createNamedQuery(Driver.FIND_ALL, Driver.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize + 1, entities.size());
 
@@ -64,7 +64,7 @@ public class DriverStoreTest extends StoreTest {
         em.getTransaction().commit();
         logger.info(entity.toString());
 
-        entities = em.createQuery("FROM Driver", Driver.class).getResultList();
+        entities = em.createNamedQuery(Driver.FIND_ALL, Driver.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize + 1, entities.size());
 
@@ -72,7 +72,7 @@ public class DriverStoreTest extends StoreTest {
         em.remove(entity);
         em.getTransaction().commit();
 
-        entities = em.createQuery("FROM Driver", Driver.class).getResultList();
+        entities = em.createNamedQuery(Driver.FIND_ALL, Driver.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize, entities.size());
     }

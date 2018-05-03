@@ -34,7 +34,7 @@ public class CountryStoreTest extends StoreTest {
     public void testCountries() {
         int initSize = 8;
 
-        List<Country> entities = em.createQuery("FROM Country", Country.class).getResultList();
+        List<Country> entities = em.createNamedQuery(Country.FIND_ALL, Country.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize, entities.size());
 
@@ -49,7 +49,7 @@ public class CountryStoreTest extends StoreTest {
         Assert.assertNotNull(entity.getId());
         logger.info(entity.toString());
 
-        entities = em.createQuery("FROM Country", Country.class).getResultList();
+        entities = em.createNamedQuery(Country.FIND_ALL, Country.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize + 1, entities.size());
 
@@ -59,7 +59,7 @@ public class CountryStoreTest extends StoreTest {
         em.getTransaction().commit();
         logger.info(entity.toString());
 
-        entities = em.createQuery("FROM Country", Country.class).getResultList();
+        entities = em.createNamedQuery(Country.FIND_ALL, Country.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize + 1, entities.size());
 
@@ -67,7 +67,7 @@ public class CountryStoreTest extends StoreTest {
         em.remove(entity);
         em.getTransaction().commit();
 
-        entities = em.createQuery("FROM Country", Country.class).getResultList();
+        entities = em.createNamedQuery(Country.FIND_ALL, Country.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize, entities.size());
     }

@@ -17,12 +17,13 @@ package at.racemanager.data.store;
 
 import at.racemanager.api.entity.Country;
 import at.racemanager.api.entity.Track;
-import static at.racemanager.data.store.StoreTest.em;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+
+import static at.racemanager.data.store.StoreTest.em;
 
 /**
  *
@@ -36,13 +37,13 @@ public class TrackStoreTest extends StoreTest {
     public void testTracks() {
         int initSize = 3;
 
-        List<Track> entities = em.createQuery("FROM Track", Track.class).getResultList();
+        List<Track> entities = em.createNamedQuery(Track.FIND_ALL, Track.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize, entities.size());
 
         Track entity = new Track();
         entity.setName("Silverstone");
-        Country country = em.createQuery("SELECT c FROM Country c WHERE c.isoCode = :isoCode", Country.class)
+        Country country = em.createNamedQuery(Country.FIND_BY_ISOCODE, Country.class)
                 .setParameter("isoCode", "GB")
                 .getSingleResult();
         entity.setCountry(country);
@@ -54,7 +55,7 @@ public class TrackStoreTest extends StoreTest {
         Assert.assertNotNull(entity.getId());
         logger.info(entity.toString());
 
-        entities = em.createQuery("FROM Track", Track.class).getResultList();
+        entities = em.createNamedQuery(Track.FIND_ALL, Track.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize + 1, entities.size());
 
@@ -64,7 +65,7 @@ public class TrackStoreTest extends StoreTest {
         em.getTransaction().commit();
         logger.info(entity.toString());
 
-        entities = em.createQuery("FROM Track", Track.class).getResultList();
+        entities = em.createNamedQuery(Track.FIND_ALL, Track.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize + 1, entities.size());
 
@@ -72,7 +73,7 @@ public class TrackStoreTest extends StoreTest {
         em.remove(entity);
         em.getTransaction().commit();
 
-        entities = em.createQuery("FROM Track", Track.class).getResultList();
+        entities = em.createNamedQuery(Track.FIND_ALL, Track.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize, entities.size());
     }

@@ -13,19 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package at.racemanager.api.entity;
+package at.racemanager.api.resource;
 
 /**
  *
  * @author rolhai
  */
-public class RmParameterException extends RmException {
+public class ResourceError {
 
-    public RmParameterException(Class cls, String message) {
-        super(cls == null ? "" : cls.getSimpleName() + " " + message);
-    }
+    protected static final String NO_ID = "no valid id provided";
 
-    public RmParameterException(String parameter, String message) {
-        super(parameter + " " + message);
-    }
+    protected static final String NO_DRIVER = "no driver provided";
+
+    protected static final String NO_TEAM = "no team provided";
+
+    protected static final String NO_RACE = "no race provided";
+
+    protected static final String NO_COUNTRY = "no country provided";
+
+    protected static final String NO_TRACK = "no track provided";
 }

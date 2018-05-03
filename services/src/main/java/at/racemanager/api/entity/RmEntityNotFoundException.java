@@ -19,13 +19,9 @@ package at.racemanager.api.entity;
  *
  * @author rolhai
  */
-public class RmParameterException extends RmException {
+public class RmEntityNotFoundException extends RmException {
 
-    public RmParameterException(Class cls, String message) {
+    public RmEntityNotFoundException(Class cls, String message) {
         super(cls == null ? "" : cls.getSimpleName() + " " + message);
-    }
-
-    public RmParameterException(String parameter, String message) {
-        super(parameter + " " + message);
     }
 }

@@ -29,12 +29,16 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = Country.FIND_ALL, query = "FROM Country")
     ,
     @NamedQuery(name = Country.COUNT_RESULTS, query = "SELECT COUNT(c) FROM Country c")
+    ,
+    @NamedQuery(name = Country.FIND_BY_ISOCODE, query = "SELECT c FROM Country c WHERE c.isoCode = :isoCode")
 })
 public class Country extends ApiEntity {
 
     public static final String FIND_ALL = "Country.findAll";
 
     public static final String COUNT_RESULTS = "Country.countResults";
+
+    public static final String FIND_BY_ISOCODE = "Country.findByIsocode";
 
     /**
      * Country Codes - ISO 3166 Alpha2-Code c<br>
