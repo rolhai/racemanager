@@ -63,4 +63,19 @@ public class TeamStore extends DataStore<Team> {
         return update(team);
     }
 
+    public Team removeDriver(long teamId, long driverId) throws RmException {
+        if (teamId <= 0) {
+            throw new RmParameterException("teamId", StoreError.IS_INVALID);
+        }
+        if (driverId <= 0) {
+            throw new RmParameterException("driverId", StoreError.IS_INVALID);
+        }
+        Team team = findById(teamId);
+        if (team == null) {
+            throw new RmEntityNotFoundException(Team.class, StoreError.NOT_FOUND);
+        }
+        team.removeDriver(driverId);
+        return update(team);
+    }
+
 }

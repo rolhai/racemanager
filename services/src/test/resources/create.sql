@@ -1,10 +1,10 @@
-CREATE TABLE countries (
-  id bigint NOT NULL AUTO_INCREMENT,
-  name varchar(100) NOT NULL,
-  isoCode varchar(2) NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY country_name_UNIQUE (name),
-  UNIQUE KEY country_isoCode_UNIQUE (isoCode)
+CREATE TABLE `countries` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `isoCode` varchar(2) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `countries_name_UNIQUE` (`name`),
+  UNIQUE KEY `countries_isoCode_UNIQUE` (`isoCode`)
 );
 
 CREATE TABLE `drivers` (
@@ -14,7 +14,7 @@ CREATE TABLE `drivers` (
   `dateOfBirth` date DEFAULT NULL,
   `countryId` bigint NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `driver_UNIQUE` (`firstname`, `lastname`)
+  UNIQUE KEY `drivers_UNIQUE` (`firstname`, `lastname`)
 );
 
 CREATE TABLE `tracks` (
@@ -22,8 +22,8 @@ CREATE TABLE `tracks` (
   `name` varchar(100) NOT NULL,
   `countryId` bigint NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `track_UNIQUE` (`name`),
-  CONSTRAINT fk_tracks_countries FOREIGN KEY (countryId) REFERENCES countries(id)
+  UNIQUE KEY `tracks_UNIQUE` (`name`),
+  CONSTRAINT `fk_tracks_countries` FOREIGN KEY (countryId) REFERENCES countries(id)
 );
 
 CREATE TABLE `teams` (
@@ -33,16 +33,16 @@ CREATE TABLE `teams` (
   `motor` varchar(100) NOT NULL,
   `countryId` bigint NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `team_UNIQUE` (`year`,`name`),
-  CONSTRAINT fk_teams_countries FOREIGN KEY (countryId) REFERENCES countries(id)
+  UNIQUE KEY `teams_UNIQUE` (`year`,`name`),
+  CONSTRAINT `fk_teams_countries` FOREIGN KEY (countryId) REFERENCES countries(id)
 );
 
 CREATE TABLE `teamdrivers` (
   `driverId` bigint NOT NULL,
   `teamId` bigint NOT NULL,
   UNIQUE KEY `teamdrivers_UNIQUE` (`teamId`,`driverId`),
-  CONSTRAINT fk_teamdrivers_drivers FOREIGN KEY (driverId) REFERENCES drivers(id),
-  CONSTRAINT fk_teamdrivers_teams FOREIGN KEY (teamId) REFERENCES teams(id)
+  CONSTRAINT `fk_teamdrivers_drivers` FOREIGN KEY (driverId) REFERENCES drivers(id),
+  CONSTRAINT `fk_teamdrivers_teams` FOREIGN KEY (teamId) REFERENCES teams(id)
 );
 
 CREATE TABLE `races` (
@@ -51,7 +51,7 @@ CREATE TABLE `races` (
   `trackId` bigint NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `races_UNIQUE` (`raceDate`,`trackId`),
-  CONSTRAINT fk_races_tracks FOREIGN KEY (trackId) REFERENCES tracks(id)
+  CONSTRAINT `fk_races_tracks` FOREIGN KEY (trackId) REFERENCES tracks(id)
 );
 
 CREATE TABLE `raceresults` (
@@ -64,6 +64,32 @@ CREATE TABLE `raceresults` (
   `raceLapTime` time DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `raceresults_UNIQUE` (`raceId`,`driverId`),
-  CONSTRAINT fk_raceresults_races FOREIGN KEY (raceId) REFERENCES races(id),
-  CONSTRAINT fk_raceresults_drivers FOREIGN KEY (driverId) REFERENCES drivers(id)
+  CONSTRAINT `fk_raceresults_races` FOREIGN KEY (raceId) REFERENCES races(id),
+  CONSTRAINT `fk_raceresults_drivers` FOREIGN KEY (driverId) REFERENCES drivers(id)
 );
+
+CREATE TABLE `championships` (
+    `id` bigint NOT NULL AUTO_INCREMENT,
+    `template` boolean NOT NULL,
+    `startDate` date NOT NULL,
+    `endDate` date DEFAULT NULL,
+    `year` int NOT NULL,
+    PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `championshipteams` (
+  `championshipId` bigint NOT NULL,
+  `teamId` bigint NOT NULL,
+  UNIQUE KEY `championshipteams_UNIQUE` (`championshipId`,`teamId`),
+  CONSTRAINT `fk_championshipteams_championships` FOREIGN KEY (championshipId) REFERENCES championships(id),
+  CONSTRAINT `fk_championshipteams_teams` FOREIGN KEY (teamId) REFERENCES teams(id)
+);
+
+CREATE TABLE `championshipraces` (
+  `championshipId` bigint NOT NULL,
+  `raceId` bigint NOT NULL,
+  UNIQUE KEY `championshiptraces_UNIQUE` (`championshipId`,`raceId`),
+  CONSTRAINT `fk_championshipraces_championships` FOREIGN KEY (championshipId) REFERENCES championships(id),
+  CONSTRAINT `fk_championshipraces_races` FOREIGN KEY (raceId) REFERENCES races(id)
+);
+

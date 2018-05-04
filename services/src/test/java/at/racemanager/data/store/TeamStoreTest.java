@@ -27,6 +27,7 @@ import org.junit.Test;
 import static at.racemanager.data.store.StoreTest.em;
 
 /**
+ * Tests for TeamStore
  *
  * @author rolhai
  */

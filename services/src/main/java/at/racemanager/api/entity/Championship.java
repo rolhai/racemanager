@@ -18,10 +18,26 @@ package at.racemanager.api.entity;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-public class Championship {
+@Entity
+@Table(name = "championships")
+@NamedQueries({
+    @NamedQuery(name = Championship.FIND_ALL, query = "FROM Championship")
+    ,
+    @NamedQuery(name = Championship.COUNT_RESULTS, query = "SELECT COUNT(c) FROM Championship c")
+})
+public class Championship extends ApiEntity {
 
-    private Long id;
+    public static final String FIND_ALL = "Championship.findAll";
+
+    public static final String COUNT_RESULTS = "Championship.countResults";
 
     private boolean template;
 
@@ -34,17 +50,25 @@ public class Championship {
 
     private int year;
 
+    @OneToMany
+    @JoinTable(
+            name = "championshipteams",
+            joinColumns = {
+                @JoinColumn(name = "championshipId", referencedColumnName = "id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "teamId", referencedColumnName = "id", unique = true)}
+    )
     private List<Team> teams;
 
+    @OneToMany
+    @JoinTable(
+            name = "championshipraces",
+            joinColumns = {
+                @JoinColumn(name = "championshipId", referencedColumnName = "id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "raceId", referencedColumnName = "id", unique = true)}
+    )
     private List<Race> races;
-
-    public Long getId() {
-        return id;
-    }
-
-    protected void setId(Long id) {
-        this.id = id;
-    }
 
     public boolean isTemplate() {
         return template;

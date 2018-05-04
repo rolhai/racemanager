@@ -94,6 +94,20 @@ public class TeamResource {
     }
 
     @DELETE
+    @Path("{teamId}/drivers")
+    public Response removeDriver(@PathParam("teamId") long teamId, long driverId)
+            throws RmException {
+        if (teamId <= 0) {
+            throw new BadRequestException(ResourceError.NO_ID);
+        }
+        if (driverId <= 0) {
+            throw new BadRequestException(ResourceError.NO_DRIVER);
+        }
+        teamStore.removeDriver(teamId, driverId);
+        return Response.ok().build();
+    }
+
+    @DELETE
     @Path("{id")
     public Response removeById(@PathParam("id") long id) throws RmException {
         if (id <= 0) {

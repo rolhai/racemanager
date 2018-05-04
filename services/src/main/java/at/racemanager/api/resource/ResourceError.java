@@ -16,6 +16,7 @@
 package at.racemanager.api.resource;
 
 /**
+ * error-messages form resources
  *
  * @author rolhai
  */

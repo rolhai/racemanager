@@ -23,6 +23,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * Tests for CountryStore
  *
  * @author rolhai
  */

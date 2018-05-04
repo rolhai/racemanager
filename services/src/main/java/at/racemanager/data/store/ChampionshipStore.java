@@ -15,16 +15,23 @@
  */
 package at.racemanager.data.store;
 
+import at.racemanager.api.entity.Championship;
+
 /**
- * error-messages from data-stores
+ * crud-operations for championships
  *
  * @author rolhai
  */
-public class StoreError {
+public class ChampionshipStore extends DataStore<Championship> {
 
-    protected static final String NOT_PROVIDED = "not provided";
+    @Override
+    protected String getCountResultNamedQuery() {
+        return Championship.COUNT_RESULTS;
+    }
 
-    protected static final String IS_INVALID = "is invalid";
+    @Override
+    protected String getFindAllNamedQuery() {
+        return Championship.FIND_ALL;
+    }
 
-    protected static final String NOT_FOUND = "not found";
 }
