@@ -50,6 +50,9 @@ public class Country extends ApiEntity {
     @Size(min = 2, max = 2)
     private String isoCode;
 
+    /**
+     * unique
+     */
     @NotNull
     @Size(min = 2, max = 100)
     private String name;

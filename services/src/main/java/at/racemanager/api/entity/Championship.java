@@ -16,15 +16,19 @@
 package at.racemanager.api.entity;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "championships")
@@ -39,18 +43,22 @@ public class Championship extends ApiEntity {
 
     public static final String COUNT_RESULTS = "Championship.countResults";
 
-    private boolean template;
-
     /**
      * unique
      */
+    @NotNull
+    @Size(min = 2, max = 100)
+    private String name;
+
+    private int year;
+
+    private boolean template;
+
     private LocalDate startDate;
 
     private LocalDate endDate;
 
-    private int year;
-
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "championshipteams",
             joinColumns = {
@@ -58,17 +66,23 @@ public class Championship extends ApiEntity {
             inverseJoinColumns = {
                 @JoinColumn(name = "teamId", referencedColumnName = "id", unique = true)}
     )
-    private List<Team> teams;
+    private Set<Team> teams;
 
-    @OneToMany
-    @JoinTable(
-            name = "championshipraces",
-            joinColumns = {
-                @JoinColumn(name = "championshipId", referencedColumnName = "id")},
-            inverseJoinColumns = {
-                @JoinColumn(name = "raceId", referencedColumnName = "id", unique = true)}
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            mappedBy = "championship",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
-    private List<Race> races;
+    private Set<Race> races;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public boolean isTemplate() {
         return template;
@@ -102,19 +116,19 @@ public class Championship extends ApiEntity {
         this.year = year;
     }
 
-    public List<Team> getTeams() {
+    public Set<Team> getTeams() {
         return teams;
     }
 
-    public void setTeams(List<Team> teams) {
+    public void setTeams(Set<Team> teams) {
         this.teams = teams;
     }
 
-    public List<Race> getRaces() {
+    public Set<Race> getRaces() {
         return races;
     }
 
-    public void setRaces(List<Race> races) {
+    public void setRaces(Set<Race> races) {
         this.races = races;
     }
 
@@ -145,6 +159,6 @@ public class Championship extends ApiEntity {
 
     @Override
     public String toString() {
-        return "Championship{" + "id=" + id + ", template=" + template + ", startDate=" + startDate + ", endDate=" + endDate + ", year=" + year + ", teams=" + teams + ", races=" + races + '}';
+        return "Championship{" + "name=" + name + ", template=" + template + ", startDate=" + startDate + ", endDate=" + endDate + ", year=" + year + '}';
     }
 }

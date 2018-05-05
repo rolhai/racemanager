@@ -20,7 +20,9 @@ import at.racemanager.api.entity.Race;
 import at.racemanager.api.entity.Team;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
@@ -39,21 +41,22 @@ public class ChampionshipStoreTest extends StoreTest {
 
     @Test
     public void testChampionships() {
-        int initSize = 0;
+        int initSize = 2;
 
         List<Championship> entities = em.createNamedQuery(Championship.FIND_ALL, Championship.class).getResultList();
         Assert.assertNotNull(entities);
         Assert.assertEquals(initSize, entities.size());
 
         Championship entity = new Championship();
+        entity.setName("Formula1 - Test Season");
         entity.setTemplate(true);
         entity.setYear(2018);
         entity.setStartDate(LocalDate.of(2018, Month.MARCH, 17));
 
-        List<Team> teams = em.createNamedQuery(Team.FIND_ALL, Team.class).getResultList();
+        Set<Team> teams = new HashSet<>(em.createNamedQuery(Team.FIND_ALL, Team.class).getResultList());
         entity.setTeams(teams);
 
-        List<Race> races = em.createNamedQuery(Race.FIND_ALL, Race.class).getResultList();
+        Set<Race> races = new HashSet<>(em.createNamedQuery(Race.FIND_ALL, Race.class).getResultList());
         entity.setRaces(races);
 
         em.getTransaction().begin();
@@ -77,8 +80,6 @@ public class ChampionshipStoreTest extends StoreTest {
 
         entities = em.createNamedQuery(Championship.FIND_ALL, Championship.class).getResultList();
         Assert.assertNotNull(entities);
-        Assert.assertNotNull(entities.get(0).getStartDate());
-        Assert.assertNotNull(entities.get(0).getEndDate());
         Assert.assertNotNull(entities.get(0).getTeams());
         Assert.assertNotNull(entities.get(0).getRaces());
         Assert.assertEquals(initSize + 1, entities.size());

@@ -18,12 +18,13 @@ package at.racemanager.api.entity;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class TeamTest {
 
@@ -104,10 +105,11 @@ public class TeamTest {
         assertNotNull(team.getDrivers());
         int counter = team.getDrivers().size();
 
+        Driver existingDriver = team.getDrivers().stream().findAny().get();
         Driver d1 = new Driver();
-        d1.setId(team.getDrivers().get(0).getId());
-        d1.setFirstname(team.getDrivers().get(0).getFirstname());
-        d1.setLastname(team.getDrivers().get(0).getLastname());
+        d1.setId(existingDriver.getId());
+        d1.setFirstname(existingDriver.getFirstname());
+        d1.setLastname(existingDriver.getLastname());
 
         team.addDriver(d1);
 

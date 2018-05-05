@@ -15,6 +15,7 @@
  */
 package at.racemanager.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalTime;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,6 +41,7 @@ public class RaceResult extends ApiEntity {
 
     private LocalTime raceLapTime;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "raceId")
     private Race race;

@@ -15,10 +15,9 @@
  */
 package at.racemanager.api.resource;
 
-import at.racemanager.api.entity.Driver;
+import at.racemanager.api.entity.Championship;
 import at.racemanager.api.entity.RmException;
-import at.racemanager.data.store.DriverStore;
-import javax.ejb.Asynchronous;
+import at.racemanager.data.store.ChampionshipStore;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
@@ -30,42 +29,32 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.container.AsyncResponse;
-import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Resource for drivers
+ * Resource for championships
  *
  * @author rolhai
  */
-@Path("drivers")
+@Path("championships")
 @Consumes
 @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
 @RequestScoped
 @Interceptors(ResourceExceptionInterceptor.class)
-public class DriverResource {
+public class ChampionshipResource {
 
-    private static final Logger logger = LogManager.getLogger(DriverResource.class);
+    private static final Logger logger = LogManager.getLogger(ChampionshipResource.class);
 
     @Inject
-    private DriverStore driverStore;
+    private ChampionshipStore championshipStore;
 
     @GET
     public Response findAll() {
-        logger.debug("find all drivers sync");
-        return Response.ok(driverStore.findAll()).build();
-    }
-
-    @GET
-    @Path("async")
-    @Asynchronous
-    public void findAllAsync(@Suspended AsyncResponse asyncResponse) {
-        logger.debug("find all drivers async");
-        asyncResponse.resume(Response.ok(driverStore.findAll()).build());
+        logger.debug("find all championships");
+        return Response.ok(championshipStore.findAll()).build();
     }
 
     @GET
@@ -74,18 +63,18 @@ public class DriverResource {
         if (id <= 0) {
             throw new BadRequestException(ResourceError.NO_ID);
         }
-        logger.debug(String.format("find driver with id %d", id));
-        return Response.ok(driverStore.findById(id)).build();
+        logger.debug(String.format("find championship with id %d", id));
+        return Response.ok(championshipStore.findById(id)).build();
     }
 
     @POST
-    public Response create(Driver driver) throws RmException {
-        if (driver == null) {
-            throw new BadRequestException(ResourceError.NO_DRIVER);
+    public Response create(Championship championship) throws RmException {
+        if (championship == null) {
+            throw new BadRequestException(ResourceError.NO_CHAMPIONSHIP);
         }
-        logger.debug(String.format("create driver %s", driver.toString()));
-        Driver createdDriver = driverStore.create(driver);
-        return Response.ok(createdDriver).build();
+        logger.debug(String.format("create championship %s", championship.toString()));
+        Championship createdCountry = championshipStore.create(championship);
+        return Response.ok(createdCountry).build();
     }
 
     @DELETE
@@ -94,8 +83,8 @@ public class DriverResource {
         if (id <= 0) {
             throw new BadRequestException(ResourceError.NO_ID);
         }
-        logger.debug(String.format("remove driver with id %d", id));
-        driverStore.removeById(id);
+        logger.debug(String.format("remove championship with id %d", id));
+        championshipStore.removeById(id);
         return Response.ok().build();
     }
 }

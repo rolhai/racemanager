@@ -15,8 +15,8 @@
  */
 package at.racemanager.api.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TestdataBuilder {
 
@@ -25,8 +25,8 @@ public class TestdataBuilder {
      *
      * @return list of drivers
      */
-    public List<Driver> getDrivers() {
-        List<Driver> drivers = new ArrayList<>();
+    public Set<Driver> getDrivers() {
+        Set<Driver> drivers = new HashSet<>();
 
         Driver d1 = new Driver();
         d1.setId(1l);
@@ -35,9 +35,9 @@ public class TestdataBuilder {
         drivers.add(d1);
 
         Driver d2 = new Driver();
-        d1.setId(2l);
-        d1.setFirstname("Mika");
-        d1.setLastname("Hakkinen");
+        d2.setId(2l);
+        d2.setFirstname("Mika");
+        d2.setLastname("Hakkinen");
         drivers.add(d2);
 
         Driver d3 = new Driver();

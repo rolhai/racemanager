@@ -59,8 +59,7 @@ public class Driver extends ApiEntity {
 
     private LocalDate dateOfBirth;
 
-    @ManyToOne//(fetch = FetchType.LAZY)
-    //@Fetch(FetchMode.JOIN)
+    @ManyToOne
     @JoinColumn(name = "countryId")
     @NotNull
     private Country country;

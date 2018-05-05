@@ -45,12 +45,33 @@ CREATE TABLE `teamdrivers` (
   CONSTRAINT `fk_teamdrivers_teams` FOREIGN KEY (teamId) REFERENCES teams(id)
 );
 
+CREATE TABLE `championships` (
+    `id` bigint NOT NULL AUTO_INCREMENT,
+    `name` varchar(100) NOT NULL,
+    `template` boolean NOT NULL,
+    `startDate` date DEFAULT NULL,
+    `endDate` date DEFAULT NULL,
+    `year` int NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `championships_UNIQUE` (`name`)
+);
+
+CREATE TABLE `championshipteams` (
+  `championshipId` bigint NOT NULL,
+  `teamId` bigint NOT NULL,
+  UNIQUE KEY `championshipteams_UNIQUE` (`championshipId`,`teamId`),
+  CONSTRAINT `fk_championshipteams_championships` FOREIGN KEY (championshipId) REFERENCES championships(id),
+  CONSTRAINT `fk_championshipteams_teams` FOREIGN KEY (teamId) REFERENCES teams(id)
+);
+
 CREATE TABLE `races` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `raceDate` date NOT NULL,
+  `championshipId` bigint NOT NULL,
   `trackId` bigint NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `races_UNIQUE` (`raceDate`,`trackId`),
+  UNIQUE KEY `races_UNIQUE` (`championshipId`,`trackId`),
+  CONSTRAINT `fk_races_championships` FOREIGN KEY (championshipId) REFERENCES championships(id),
   CONSTRAINT `fk_races_tracks` FOREIGN KEY (trackId) REFERENCES tracks(id)
 );
 
@@ -67,29 +88,3 @@ CREATE TABLE `raceresults` (
   CONSTRAINT `fk_raceresults_races` FOREIGN KEY (raceId) REFERENCES races(id),
   CONSTRAINT `fk_raceresults_drivers` FOREIGN KEY (driverId) REFERENCES drivers(id)
 );
-
-CREATE TABLE `championships` (
-    `id` bigint NOT NULL AUTO_INCREMENT,
-    `template` boolean NOT NULL,
-    `startDate` date NOT NULL,
-    `endDate` date DEFAULT NULL,
-    `year` int NOT NULL,
-    PRIMARY KEY (`id`)
-);
-
-CREATE TABLE `championshipteams` (
-  `championshipId` bigint NOT NULL,
-  `teamId` bigint NOT NULL,
-  UNIQUE KEY `championshipteams_UNIQUE` (`championshipId`,`teamId`),
-  CONSTRAINT `fk_championshipteams_championships` FOREIGN KEY (championshipId) REFERENCES championships(id),
-  CONSTRAINT `fk_championshipteams_teams` FOREIGN KEY (teamId) REFERENCES teams(id)
-);
-
-CREATE TABLE `championshipraces` (
-  `championshipId` bigint NOT NULL,
-  `raceId` bigint NOT NULL,
-  UNIQUE KEY `championshiptraces_UNIQUE` (`championshipId`,`raceId`),
-  CONSTRAINT `fk_championshipraces_championships` FOREIGN KEY (championshipId) REFERENCES championships(id),
-  CONSTRAINT `fk_championshipraces_races` FOREIGN KEY (raceId) REFERENCES races(id)
-);
-

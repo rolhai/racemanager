@@ -15,11 +15,12 @@
  */
 package at.racemanager.api.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
@@ -59,7 +60,7 @@ public class Team extends ApiEntity {
     @Size(min = 2, max = 100)
     private String motor;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "teamdrivers",
             joinColumns = {
@@ -67,7 +68,7 @@ public class Team extends ApiEntity {
             inverseJoinColumns = {
                 @JoinColumn(name = "driverId", referencedColumnName = "id", unique = true)}
     )
-    private List<Driver> drivers;
+    private Set<Driver> drivers;
 
     @ManyToOne
     @JoinColumn(name = "countryId")
@@ -100,7 +101,7 @@ public class Team extends ApiEntity {
 
     public void addDriver(Driver driver) {
         if (drivers == null) {
-            drivers = new ArrayList<>();
+            drivers = new HashSet<>();
         }
         if (drivers.contains(driver)) {
             return;
@@ -119,11 +120,11 @@ public class Team extends ApiEntity {
         drivers.remove(filterResult.get());
     }
 
-    public List<Driver> getDrivers() {
+    public Set<Driver> getDrivers() {
         return drivers;
     }
 
-    public void setDrivers(List<Driver> drivers) {
+    public void setDrivers(Set<Driver> drivers) {
         this.drivers = drivers;
     }
 

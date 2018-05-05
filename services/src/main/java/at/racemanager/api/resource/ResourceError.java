@@ -33,4 +33,6 @@ public class ResourceError {
     protected static final String NO_COUNTRY = "no country provided";
 
     protected static final String NO_TRACK = "no track provided";
+
+    protected static final String NO_CHAMPIONSHIP = "no championship provided";
 }

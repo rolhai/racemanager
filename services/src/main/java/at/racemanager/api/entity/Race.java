@@ -15,13 +15,15 @@
  */
 package at.racemanager.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -51,16 +53,23 @@ public class Race extends ApiEntity {
     @NotNull
     private Track track;
 
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "championshipId")
+    @NotNull
+    private Championship championship;
+
     @OneToMany(
+            fetch = FetchType.EAGER,
             mappedBy = "race",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<RaceResult> raceResults;
+    private Set<RaceResult> raceResults;
 
     public void addRaceResult(RaceResult raceresult) {
         if (raceResults == null) {
-            raceResults = new ArrayList<>();
+            raceResults = new HashSet<>();
         }
         if (raceResults.contains(raceresult)) {
             return;
@@ -82,6 +91,14 @@ public class Race extends ApiEntity {
         raceResult.setRace(null);
     }
 
+    public Championship getChampionship() {
+        return championship;
+    }
+
+    public void setChampionship(Championship championship) {
+        this.championship = championship;
+    }
+
     public LocalDate getRaceDate() {
         return raceDate;
     }
@@ -98,11 +115,11 @@ public class Race extends ApiEntity {
         this.track = track;
     }
 
-    public List<RaceResult> getRaceResults() {
+    public Set<RaceResult> getRaceResults() {
         return raceResults;
     }
 
-    public void setRaceResults(List<RaceResult> raceResults) {
+    public void setRaceResults(Set<RaceResult> raceResults) {
         this.raceResults = raceResults;
     }
 

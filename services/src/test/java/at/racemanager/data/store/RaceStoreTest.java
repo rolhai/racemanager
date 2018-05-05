@@ -15,6 +15,7 @@
  */
 package at.racemanager.data.store;
 
+import at.racemanager.api.entity.Championship;
 import at.racemanager.api.entity.Driver;
 import at.racemanager.api.entity.Race;
 import at.racemanager.api.entity.RaceResult;
@@ -41,7 +42,7 @@ public class RaceStoreTest extends StoreTest {
 
     @Test
     public void testRaces() {
-        int initSize = 0;
+        int initSize = 2;
 
         List<Race> entities = em.createNamedQuery(Race.FIND_ALL, Race.class).getResultList();
         Assert.assertNotNull(entities);
@@ -50,8 +51,11 @@ public class RaceStoreTest extends StoreTest {
         Race entity = new Race();
         entity.setRaceDate(LocalDate.of(2018, Month.MARCH, 17));
         Track track = em.createNamedQuery(Track.FIND_BY_NAME, Track.class)
-                .setParameter("name", "Monza")
+                .setParameter("name", "Hockenheim")
                 .getSingleResult();
+        Championship championship = (Championship) em.createNamedQuery(Championship.FIND_ALL)
+                .getResultList().stream().findFirst().get();
+        entity.setChampionship(championship);
         entity.setTrack(track);
 
         em.getTransaction().begin();
