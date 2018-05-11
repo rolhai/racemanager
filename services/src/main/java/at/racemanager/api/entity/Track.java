@@ -28,11 +28,11 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "tracks")
 @NamedQueries({
-    @NamedQuery(name = Track.FIND_ALL, query = "FROM Track")
+    @NamedQuery(name = Track.FIND_ALL, query = "SELECT t FROM Track t LEFT JOIN FETCH t.country")
     ,
     @NamedQuery(name = Track.COUNT_RESULTS, query = "SELECT COUNT(t) FROM Track t")
     ,
-    @NamedQuery(name = Track.FIND_BY_NAME, query = "SELECT t FROM Track t WHERE t.name = :name")
+    @NamedQuery(name = Track.FIND_BY_NAME, query = "SELECT t FROM Track t JOIN FETCH t.country WHERE t.name = :name")
 })
 public class Track extends ApiEntity {
 

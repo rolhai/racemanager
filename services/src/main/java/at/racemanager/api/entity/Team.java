@@ -34,7 +34,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "teams")
 @NamedQueries({
-    @NamedQuery(name = Team.FIND_ALL, query = "FROM Team")
+    @NamedQuery(name = Team.FIND_ALL, query = "SELECT t FROM Team t LEFT JOIN FETCH t.country")
     ,
     @NamedQuery(name = Team.COUNT_RESULTS, query = "SELECT COUNT(t) FROM Team t")
 })

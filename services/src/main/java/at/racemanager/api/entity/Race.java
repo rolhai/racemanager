@@ -35,7 +35,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "races")
 @NamedQueries({
-    @NamedQuery(name = Race.FIND_ALL, query = "FROM Race")
+    @NamedQuery(name = Race.FIND_ALL, query = "SELECT r FROM Race r LEFT JOIN FETCH r.track")
     ,
     @NamedQuery(name = Race.COUNT_RESULTS, query = "SELECT COUNT(r) FROM Race r")
 })

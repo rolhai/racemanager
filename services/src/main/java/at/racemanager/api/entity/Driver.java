@@ -29,11 +29,11 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "drivers")
 @NamedQueries({
-    @NamedQuery(name = Driver.FIND_ALL, query = "FROM Driver") // JOIN d.country
+    @NamedQuery(name = Driver.FIND_ALL, query = "SELECT d FROM Driver d LEFT JOIN FETCH d.country")
     ,
     @NamedQuery(name = Driver.COUNT_RESULTS, query = "SELECT COUNT(d) FROM Driver d")
     ,
-    @NamedQuery(name = Driver.FIND_BY_LASTNAME, query = "SELECT d FROM Driver d WHERE d.lastname = :lastname")
+    @NamedQuery(name = Driver.FIND_BY_LASTNAME, query = "SELECT d FROM Driver d LEFT JOIN FETCH d.country WHERE d.lastname = :lastname")
 })
 public class Driver extends ApiEntity {
 
