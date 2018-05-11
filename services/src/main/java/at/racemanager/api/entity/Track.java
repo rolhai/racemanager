@@ -32,7 +32,7 @@ import javax.validation.constraints.Size;
     ,
     @NamedQuery(name = Track.COUNT_RESULTS, query = "SELECT COUNT(t) FROM Track t")
     ,
-    @NamedQuery(name = Track.FIND_BY_NAME, query = "SELECT t FROM Track t JOIN FETCH t.country WHERE t.name = :name")
+    @NamedQuery(name = Track.FIND_BY_NAME, query = "SELECT t FROM Track t LEFT JOIN FETCH t.country WHERE t.name = :name")
 })
 public class Track extends ApiEntity {
 
