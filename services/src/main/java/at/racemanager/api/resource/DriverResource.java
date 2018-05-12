@@ -27,6 +27,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -86,6 +87,15 @@ public class DriverResource {
         logger.debug(String.format("create driver %s", driver.toString()));
         Driver createdDriver = driverStore.create(driver);
         return Response.ok(createdDriver).build();
+    }
+
+    @PUT
+    public Response update(Driver driver) throws RmException {
+        if (driver == null) {
+            throw new BadRequestException(ResourceError.NO_DRIVER);
+        }
+        logger.debug(String.format("update driver %s", driver.toString()));
+        return Response.ok(driverStore.update(driver)).build();
     }
 
     @DELETE

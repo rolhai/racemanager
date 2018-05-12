@@ -1,5 +1,6 @@
 import { BrowserModule }    from '@angular/platform-browser';
 import { NgModule }         from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule }      from '@angular/forms';
 
 import { AppRoutingModule } from './/app-routing.module';
@@ -11,13 +12,15 @@ import { DriverDetailComponent }    from './driver-detail/driver-detail.componen
 import { MessagesComponent }        from './messages/messages.component';
 
 import { DriverService }    from './services/driver.service';
+import { CountryService }    from './services/country.service';
 import { MessageService }   from './services/message.service';
 
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
-        AppRoutingModule
+        AppRoutingModule,
+        HttpClientModule
     ],
     declarations: [
         AppComponent,
@@ -26,7 +29,7 @@ import { MessageService }   from './services/message.service';
         DriverDetailComponent,
         MessagesComponent
     ],
-    providers: [DriverService, MessageService],
+    providers: [DriverService, CountryService, MessageService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
