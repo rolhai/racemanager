@@ -2,7 +2,7 @@ import { Component, Input }     from '@angular/core';
 import { ActivatedRoute }       from '@angular/router';
 import { Location }             from '@angular/common';
 
-import { Observable }           from 'rxjs/Observable';
+import { Observable }           from 'rxjs';
 
 import { DriverService }        from '../services/driver.service';
 import { CountryService }       from '../services/country.service';
