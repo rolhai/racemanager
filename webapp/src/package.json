@@ -1,7 +1,7 @@
 {
     "name": "racemanager",
     "version": "1.0.0",
-    "license": "MIT",
+    "license": "Apache",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
@@ -23,9 +23,15 @@
         "@angular/platform-browser-dynamic": "^6.0.3",
         "@angular/platform-server": "^6.0.3",
         "@angular/router": "^6.0.3",
+        "@ng-bootstrap/ng-bootstrap": "^2.0.0",
+        "@ngx-translate/core": "^10.0.1",
+        "@ngx-translate/http-loader": "^3.0.1",
+        "chart.js": "^2.7.2",
         "core-js": "^2.5.7",
+        "font-awesome": "^4.7.0",
+        "ng2-charts": "^1.6.0",
         "rxjs": "^6.2.0",
-        "zone.js": "^0.8.14"
+        "zone.js": "^0.8.26"
     },
     "devDependencies": {
         "@angular-devkit/build-angular": "~0.6.5",

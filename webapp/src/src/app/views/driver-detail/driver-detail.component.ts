@@ -4,13 +4,13 @@ import { Location }             from '@angular/common';
 
 import { Observable }           from 'rxjs';
 
-import { DriverService }        from '../services/driver.service';
-import { CountryService }       from '../services/country.service';
-import { Driver }               from '../entity/driver';
-import { Country }              from '../entity/country';
+import { DriverService }        from '../../services/driver.service';
+import { CountryService }       from '../../services/country.service';
+import { Driver }               from '../../entity/driver';
+import { Country }              from '../../entity/country';
 
 @Component({
-    selector: 'app-driver-detail',
+    selector: 'view-driver-detail',
     templateUrl: './driver-detail.component.html',
     styleUrls:  ['./driver-detail.component.css']
 })

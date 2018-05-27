@@ -1,9 +1,9 @@
 import { Component, OnInit }    from '@angular/core';
-import { Driver }               from '../entity/driver';
-import { DriverService }        from '../services/driver.service';
+import { Driver }               from '../../entity/driver';
+import { DriverService }        from '../../services/driver.service';
 
 @Component({
-    selector: 'app-dashboard',
+    selector: 'view-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: [ './dashboard.component.css' ]
 })
