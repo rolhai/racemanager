@@ -15,6 +15,8 @@
  */
 package at.racemanager.api.resource;
 
+import java.util.Properties;
+import javax.batch.runtime.BatchRuntime;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -35,6 +37,7 @@ public class MonitorResource {
     @GET
     @Path("ping")
     public String ping() {
+        BatchRuntime.getJobOperator().start("counterJob", new Properties());
         return "Service is running";
     }
 }

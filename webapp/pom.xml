@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>racemanager-parent</artifactId>
+        <artifactId>racemanager</artifactId>
         <groupId>at.racemanager</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
@@ -32,7 +32,7 @@
                         <id>exec-npm-install</id>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <workingDirectory>${project.basedir}/src/</workingDirectory>
+                            <workingDirectory>${project.basedir}/src</workingDirectory>
                             <executable>npm</executable>
                             <arguments>
                                 <argument>install</argument>
@@ -46,12 +46,11 @@
                         <id>exe-npm-ng-build</id>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <workingDirectory>${project.basedir}/src/</workingDirectory>
+                            <workingDirectory>${project.basedir}/src</workingDirectory>
                             <executable>ng</executable>
                             <arguments>
                                 <argument>build</argument>
-                                <argument>--target=production</argument>
-                                <argument>--environment=prod</argument>
+                                <argument>--prod</argument>
                                 <argument>--base-href=/racemanager-webapp/</argument>
                             </arguments>
                         </configuration>
