@@ -1,26 +1,30 @@
 # racemanager
 
-the purpose of the application is to manage whole motor race seasons.
-you can edit tracks, drivers, teams, events and so on. if you gather race results you can get various statistics.
+the purpose of the application is to manage results for motor race championships.
+you can edit tracks, drivers, teams, events and so on.
+gather race results than you can analyse various statistics.
 
-## features
+## technology
 
-- server
+- backend
 - - rest api
+- - java 8
 - - java ee 7
-- client
+- frontend
 - - single page application (spa)
-- - angular 4
+- - angular 6
 
 ## installation
 
 - requirements
 - - maven
 - - npm
+- - docker
 - - git
-- - java 8
-- - java ee 7 application server (wildfly 10)
+- - wildfly 10.1
+- - mysql 5.7 (dev, prod)
+- - h2-db (test)
 
-## build
+## build backend and frontend
 
 - mvn clean install
