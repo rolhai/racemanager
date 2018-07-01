@@ -1,3 +1,18 @@
+/*
+ * Copyright 2018 rolhai.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package at.racemanager.api.entity;
 
 import java.util.Objects;
@@ -14,6 +29,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = Country.FIND_ALL, query = "FROM Country")
     ,
     @NamedQuery(name = Country.COUNT_RESULTS, query = "SELECT COUNT(c) FROM Country c")
+    ,
+    @NamedQuery(name = Country.FIND_BY_ISOCODE, query = "SELECT c FROM Country c WHERE c.isoCode = :isoCode")
 })
 public class Country extends ApiEntity {
 
@@ -21,8 +38,11 @@ public class Country extends ApiEntity {
 
     public static final String COUNT_RESULTS = "Country.countResults";
 
+    public static final String FIND_BY_ISOCODE = "Country.findByIsocode";
+
     /**
-     * Country Codes - ISO 3166 Alpha2-Code c
+     * Country Codes - ISO 3166 Alpha2-Code c<br>
+     * https://www.iso.org/obp/ui/#search
      *
      * unique
      */
@@ -30,6 +50,9 @@ public class Country extends ApiEntity {
     @Size(min = 2, max = 2)
     private String isoCode;
 
+    /**
+     * unique
+     */
     @NotNull
     @Size(min = 2, max = 100)
     private String name;

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2018 rolhai.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package at.racemanager.api.entity;
 
 import java.util.Objects;
@@ -13,15 +28,19 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "tracks")
 @NamedQueries({
-    @NamedQuery(name = Track.FIND_ALL, query = "FROM Track")
+    @NamedQuery(name = Track.FIND_ALL, query = "SELECT t FROM Track t LEFT JOIN FETCH t.country")
     ,
     @NamedQuery(name = Track.COUNT_RESULTS, query = "SELECT COUNT(t) FROM Track t")
+    ,
+    @NamedQuery(name = Track.FIND_BY_NAME, query = "SELECT t FROM Track t LEFT JOIN FETCH t.country WHERE t.name = :name")
 })
 public class Track extends ApiEntity {
 
     public static final String FIND_ALL = "Track.findAll";
 
     public static final String COUNT_RESULTS = "Track.countResults";
+
+    public static final String FIND_BY_NAME = "Track.findByName";
 
     /**
      * unique

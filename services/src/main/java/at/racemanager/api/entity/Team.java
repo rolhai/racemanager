@@ -1,10 +1,26 @@
+/*
+ * Copyright 2018 rolhai.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package at.racemanager.api.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
@@ -18,7 +34,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "teams")
 @NamedQueries({
-    @NamedQuery(name = Team.FIND_ALL, query = "FROM Team")
+    @NamedQuery(name = Team.FIND_ALL, query = "SELECT t FROM Team t LEFT JOIN FETCH t.country")
     ,
     @NamedQuery(name = Team.COUNT_RESULTS, query = "SELECT COUNT(t) FROM Team t")
 })
@@ -44,15 +60,15 @@ public class Team extends ApiEntity {
     @Size(min = 2, max = 100)
     private String motor;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "teams_drivers",
+            name = "teamdrivers",
             joinColumns = {
                 @JoinColumn(name = "teamId", referencedColumnName = "id")},
             inverseJoinColumns = {
                 @JoinColumn(name = "driverId", referencedColumnName = "id", unique = true)}
     )
-    private List<Driver> drivers;
+    private Set<Driver> drivers;
 
     @ManyToOne
     @JoinColumn(name = "countryId")
@@ -85,7 +101,7 @@ public class Team extends ApiEntity {
 
     public void addDriver(Driver driver) {
         if (drivers == null) {
-            drivers = new ArrayList<>();
+            drivers = new HashSet<>();
         }
         if (drivers.contains(driver)) {
             return;
@@ -104,11 +120,11 @@ public class Team extends ApiEntity {
         drivers.remove(filterResult.get());
     }
 
-    public List<Driver> getDrivers() {
+    public Set<Driver> getDrivers() {
         return drivers;
     }
 
-    public void setDrivers(List<Driver> drivers) {
+    public void setDrivers(Set<Driver> drivers) {
         this.drivers = drivers;
     }
 

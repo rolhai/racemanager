@@ -1,7 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2018 rolhai.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package at.racemanager.data.store;
 
@@ -14,6 +24,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
+ * crud-operations for generic type
  *
  * @author rolhai
  */
@@ -32,7 +43,7 @@ public abstract class DataStore<E> {
 
     public E create(final E entity) throws RmException {
         if (entity == null) {
-            throw new RmParameterException(entityClass.getSimpleName(), "not provided");
+            throw new RmParameterException(entityClass, StoreError.NOT_PROVIDED);
         }
         em.persist(entity);
         return entity;
@@ -40,28 +51,28 @@ public abstract class DataStore<E> {
 
     public E update(final E entity) throws RmException {
         if (entity == null) {
-            throw new RmParameterException(entityClass.getSimpleName(), "not provided");
+            throw new RmParameterException(entityClass, StoreError.NOT_PROVIDED);
         }
         return em.merge(entity);
     }
 
     public void removeById(final Long id) throws RmException {
         if (id <= 0) {
-            throw new RmParameterException("id", "is invalid");
+            throw new RmParameterException("id", StoreError.IS_INVALID);
         }
         remove(findById(id));
     }
 
     public void remove(final E entity) throws RmException {
         if (entity == null) {
-            throw new RmParameterException(entityClass.getSimpleName(), "not provided");
+            throw new RmParameterException(entityClass, StoreError.NOT_PROVIDED);
         }
         em.remove(em.merge(entity));
     }
 
     public E findById(final Long id) throws RmException {
         if (id <= 0) {
-            throw new RmParameterException("id", "is invalid");
+            throw new RmParameterException("id", StoreError.IS_INVALID);
         }
         return em.find(entityClass, id);
     }

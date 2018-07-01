@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Driver } from '../entity/driver';
-import { DriverService } from '../services/driver.service';
+import { Driver } from '../../entity/driver';
+import { DriverService } from '../../services/driver.service';
 
 @Component({
-    selector: 'app-drivers',
+    selector: 'view-drivers',
     templateUrl: './drivers.component.html',
     styleUrls:  ['./drivers.component.css']
 })

@@ -1,14 +1,30 @@
+/*
+ * Copyright 2018 rolhai.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package at.racemanager.api.entity;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class TeamTest {
 
@@ -41,12 +57,13 @@ public class TeamTest {
     public void removeDrivers() {
         Team team = new Team();
         team.setDrivers(testdataBuilder.getDrivers());
-
         assertNotNull(team.getDrivers());
-        int countDrivers = team.getDrivers().size();
 
+        int initSize = team.getDrivers().size();
         team.removeDriver(2l);
-        Assert.assertEquals(countDrivers - 1, team.getDrivers().size());
+        int afterRemoveSize = team.getDrivers().size();
+
+        Assert.assertEquals(initSize - 1, afterRemoveSize);
     }
 
     /**
@@ -55,7 +72,6 @@ public class TeamTest {
     @Test
     public void removeDriverFromEmptyList() {
         Team team = new Team();
-
         assertNull(team.getDrivers());
         team.removeDriver(1l);
     }
@@ -89,10 +105,11 @@ public class TeamTest {
         assertNotNull(team.getDrivers());
         int counter = team.getDrivers().size();
 
+        Driver existingDriver = team.getDrivers().stream().findAny().get();
         Driver d1 = new Driver();
-        d1.setId(team.getDrivers().get(0).getId());
-        d1.setFirstname(team.getDrivers().get(0).getFirstname());
-        d1.setLastname(team.getDrivers().get(0).getLastname());
+        d1.setId(existingDriver.getId());
+        d1.setFirstname(existingDriver.getFirstname());
+        d1.setLastname(existingDriver.getLastname());
 
         team.addDriver(d1);
 

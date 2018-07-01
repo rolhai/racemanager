@@ -1,0 +1,24 @@
+<div *ngIf="driver">
+    <h2> {{driver.firstname}} {{driver.lastname}}</h2>
+    <div><label>id: </label>{{driver.id}}</div>
+    <div>
+        <label>firstname: </label>
+        <input [(ngModel)]="driver.firstname" placeholder="firstname" />
+    </div>
+    <div>
+        <label>lastname: </label>
+        <input [(ngModel)]="driver.lastname" placeholder="lastname" />
+    </div>
+    <div>
+        <label>country: </label>
+        <select [compareWith]="compareCountry" [(ngModel)]="driver.country">
+            <option [ngValue]="null" disabled>Choose a country</option>
+            <option *ngFor="let country of countries" [ngValue]="country">
+                {{country.isoCode}} - {{country.name}}
+            </option>           
+        </select>
+    </div>
+</div>
+<button (click)="goBack()">go back</button>
+<button (click)="save()">save</button>
+<button (click)="add()">new</button>

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2018 rolhai.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package at.racemanager.api.entity;
 
 import java.time.LocalDate;
@@ -14,15 +29,19 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "drivers")
 @NamedQueries({
-    @NamedQuery(name = Driver.FIND_ALL, query = "FROM Driver") // JOIN d.country
+    @NamedQuery(name = Driver.FIND_ALL, query = "SELECT d FROM Driver d LEFT JOIN FETCH d.country")
     ,
     @NamedQuery(name = Driver.COUNT_RESULTS, query = "SELECT COUNT(d) FROM Driver d")
+    ,
+    @NamedQuery(name = Driver.FIND_BY_LASTNAME, query = "SELECT d FROM Driver d LEFT JOIN FETCH d.country WHERE d.lastname = :lastname")
 })
 public class Driver extends ApiEntity {
 
     public static final String FIND_ALL = "Driver.findAll";
 
     public static final String COUNT_RESULTS = "Driver.countResults";
+
+    public static final String FIND_BY_LASTNAME = "Driver.findByLastname";
 
     /**
      * unique
@@ -40,8 +59,7 @@ public class Driver extends ApiEntity {
 
     private LocalDate dateOfBirth;
 
-    @ManyToOne//(fetch = FetchType.LAZY)
-    //@Fetch(FetchMode.JOIN)
+    @ManyToOne
     @JoinColumn(name = "countryId")
     @NotNull
     private Country country;
