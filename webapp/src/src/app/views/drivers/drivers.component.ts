@@ -9,7 +9,6 @@ import { DriverService } from '../../services/driver.service';
 })
 export class DriversComponent implements OnInit {
 
-    title = 'Drivers';
     drivers : Driver[];
     //selectedDriver: Driver;
 
