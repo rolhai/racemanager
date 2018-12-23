@@ -15,13 +15,14 @@
  */
 package at.racemanager.data.store;
 
-import at.racemanager.api.entity.Country;
-import at.racemanager.api.entity.Driver;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.logging.Logger;
+
 import org.junit.Assert;
 import org.junit.Test;
+
+import at.racemanager.api.entity.Country;
+import at.racemanager.api.entity.Driver;
 
 /**
  * Tests for DriverStore
@@ -30,7 +31,7 @@ import org.junit.Test;
  */
 public class DriverStoreTest extends StoreTest {
 
-    private static final Logger logger = LogManager.getLogger(DriverStoreTest.class);
+    private static final Logger logger = Logger.getLogger(DriverStoreTest.class.getName());
 
     @Test
     public void testDrivers() {

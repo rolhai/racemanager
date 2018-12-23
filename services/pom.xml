@@ -14,83 +14,80 @@
     <packaging>war</packaging>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <provided-hibernate-version>5.1.0.Final</provided-hibernate-version>
-        <log4j-version>2.10.0</log4j-version>
+        <!-- provided versions -->
+        <javaee-version>8.0</javaee-version>
+        <jaxb-version>2.3.0</jaxb-version>
+        <hibernate-version>5.3.6.Final</hibernate-version>
+        <!-- versions for tests -->
+        <junit-version>4.12</junit-version>
+        <h2-version>1.4.197</h2-version>
+        <!-- diverse versions -->
+        <cors-version>0.0.2</cors-version>
+        <jackson-version>2.9.5</jackson-version>      
     </properties>
 
     <dependencies>
+    	<!-- provided -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
+            <version>${javaee-version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.airhacks</groupId>
-            <artifactId>jaxrs-cors</artifactId>
-            <version>0.0.2</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- json -->
-        <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>2.9.4</version>
-        </dependency>
-
-        <!-- logging -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>${log4j-version}</version>
+            <version>${jackson-version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>${log4j-version}</version>
-        </dependency>
+		    <groupId>javax.xml.bind</groupId>
+		    <artifactId>jaxb-api</artifactId>
+		    <version>${jaxb-version}</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		<!-- cors -->
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-web</artifactId>
-            <version>${log4j-version}</version>
+            <groupId>com.airhacks</groupId>
+            <artifactId>jaxrs-cors</artifactId>
+            <version>${cors-version}</version>
+            <scope>compile</scope>
         </dependency>
-
+ 
         <!-- test -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit-version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>${provided-hibernate-version}</version>
+            <version>${hibernate-version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>${provided-hibernate-version}</version>
+            <version>${hibernate-version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-java8</artifactId>
-            <version>${provided-hibernate-version}</version>
+            <version>${hibernate-version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.197</version>
+            <version>${h2-version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

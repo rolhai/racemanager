@@ -15,16 +15,15 @@
  */
 package at.racemanager.data.store;
 
-import at.racemanager.api.entity.Country;
-import at.racemanager.api.entity.Driver;
-import at.racemanager.api.entity.Team;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.logging.Logger;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-import static at.racemanager.data.store.StoreTest.em;
+import at.racemanager.api.entity.Country;
+import at.racemanager.api.entity.Driver;
+import at.racemanager.api.entity.Team;
 
 /**
  * Tests for TeamStore
@@ -33,7 +32,7 @@ import static at.racemanager.data.store.StoreTest.em;
  */
 public class TeamStoreTest extends StoreTest {
 
-    private static final Logger logger = LogManager.getLogger(TeamStoreTest.class);
+    private static final Logger logger = Logger.getLogger(TeamStoreTest.class.getName());
 
     @Test
     public void testTeams() {

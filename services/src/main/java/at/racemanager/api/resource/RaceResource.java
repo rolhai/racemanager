@@ -18,6 +18,9 @@ package at.racemanager.api.resource;
 import at.racemanager.api.entity.Race;
 import at.racemanager.api.entity.RmException;
 import at.racemanager.data.store.RaceStore;
+
+import java.util.logging.Logger;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
@@ -31,8 +34,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Resource for races
@@ -46,14 +47,14 @@ import org.apache.logging.log4j.Logger;
 @Interceptors(ResourceExceptionInterceptor.class)
 public class RaceResource {
 
-    private static final Logger logger = LogManager.getLogger(RaceResource.class);
+    private static final Logger logger = Logger.getLogger(RaceResource.class.getName());
 
     @Inject
     private RaceStore raceStore;
 
     @GET
     public Response findAll() {
-        logger.debug("find all races");
+        logger.info("find all races");
         return Response.ok(raceStore.findAll()).build();
     }
 
@@ -63,7 +64,7 @@ public class RaceResource {
         if (id <= 0) {
             throw new BadRequestException(ResourceError.NO_ID);
         }
-        logger.debug(String.format("find race with id %d", id));
+        logger.info(String.format("find race with id %d", id));
         return Response.ok(raceStore.findById(id)).build();
     }
 
@@ -72,7 +73,7 @@ public class RaceResource {
         if (race == null) {
             throw new BadRequestException(ResourceError.NO_RACE);
         }
-        logger.debug(String.format("create race %s", race.toString()));
+        logger.info(String.format("create race %s", race.toString()));
         Race createdRace = raceStore.create(race);
         return Response.ok(createdRace).build();
     }
@@ -83,7 +84,7 @@ public class RaceResource {
         if (id <= 0) {
             throw new BadRequestException(ResourceError.NO_ID);
         }
-        logger.debug(String.format("remove race with id %d", id));
+        logger.info(String.format("remove race with id %d", id));
         raceStore.removeById(id);
         return Response.ok().build();
     }

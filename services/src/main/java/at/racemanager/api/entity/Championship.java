@@ -33,7 +33,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "championships")
 @NamedQueries({
-    @NamedQuery(name = Championship.FIND_ALL, query = "FROM Championship")
+    @NamedQuery(name = Championship.FIND_ALL, query = "SELECT c FROM Championship c")
     ,
     @NamedQuery(name = Championship.COUNT_RESULTS, query = "SELECT COUNT(c) FROM Championship c")
 })

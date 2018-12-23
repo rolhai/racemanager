@@ -15,16 +15,16 @@
  */
 package at.racemanager.batch;
 
+import java.util.logging.Logger;
+
 import javax.batch.api.AbstractBatchlet;
 import javax.batch.runtime.BatchStatus;
 import javax.inject.Named;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @Named(value = "counterBatchlet")
 public class CounterBatchlet extends AbstractBatchlet {
 
-    private static final Logger logger = LogManager.getLogger(CounterBatchlet.class);
+    private static final Logger logger = Logger.getLogger(CounterBatchlet.class.getName());
 
     private static int counter = 0;
 

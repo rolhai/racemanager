@@ -18,6 +18,9 @@ package at.racemanager.api.resource;
 import at.racemanager.api.entity.Driver;
 import at.racemanager.api.entity.RmException;
 import at.racemanager.data.store.DriverStore;
+
+import java.util.logging.Logger;
+
 import javax.ejb.Asynchronous;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -35,8 +38,6 @@ import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Resource for drivers
@@ -50,14 +51,14 @@ import org.apache.logging.log4j.Logger;
 @Interceptors(ResourceExceptionInterceptor.class)
 public class DriverResource {
 
-    private static final Logger logger = LogManager.getLogger(DriverResource.class);
+    private static final Logger logger = Logger.getLogger(DriverResource.class.getName());
 
     @Inject
     private DriverStore driverStore;
 
     @GET
     public Response findAll() {
-        logger.debug("find all drivers sync");
+        logger.info("find all drivers sync");
         return Response.ok(driverStore.findAll()).build();
     }
 
@@ -65,7 +66,7 @@ public class DriverResource {
     @Path("async")
     @Asynchronous
     public void findAllAsync(@Suspended AsyncResponse asyncResponse) {
-        logger.debug("find all drivers async");
+        logger.info("find all drivers async");
         asyncResponse.resume(Response.ok(driverStore.findAll()).build());
     }
 
@@ -75,7 +76,7 @@ public class DriverResource {
         if (id <= 0) {
             throw new BadRequestException(ResourceError.NO_ID);
         }
-        logger.debug(String.format("find driver with id %d", id));
+        logger.info(String.format("find driver with id %d", id));
         return Response.ok(driverStore.findById(id)).build();
     }
 
@@ -84,7 +85,7 @@ public class DriverResource {
         if (driver == null) {
             throw new BadRequestException(ResourceError.NO_DRIVER);
         }
-        logger.debug(String.format("create driver %s", driver.toString()));
+        logger.info(String.format("create driver %s", driver.toString()));
         Driver createdDriver = driverStore.create(driver);
         return Response.ok(createdDriver).build();
     }
@@ -94,7 +95,7 @@ public class DriverResource {
         if (driver == null) {
             throw new BadRequestException(ResourceError.NO_DRIVER);
         }
-        logger.debug(String.format("update driver %s", driver.toString()));
+        logger.info(String.format("update driver %s", driver.toString()));
         return Response.ok(driverStore.update(driver)).build();
     }
 
@@ -104,7 +105,7 @@ public class DriverResource {
         if (id <= 0) {
             throw new BadRequestException(ResourceError.NO_ID);
         }
-        logger.debug(String.format("remove driver with id %d", id));
+        logger.info(String.format("remove driver with id %d", id));
         driverStore.removeById(id);
         return Response.ok().build();
     }
