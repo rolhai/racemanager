@@ -1,8 +1,8 @@
+import { Resource } from "./resource";
 import { Country } from "./country";
 
-export class Driver {
+export class Driver extends Resource {
 
-    id: number;
     firstname: string;
     lastname: string;
     country: Country

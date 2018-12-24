@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
     }
 
     getDrivers(): void {
-      this.driverService.getDrivers()
+      this.driverService.list()
         .subscribe(drivers => this.drivers = drivers.slice(1, 5));
     }
 }

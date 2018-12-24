@@ -16,8 +16,6 @@ input {
     border-bottom: 1px solid var(--color-font-dark);
 }
 
-select {}
-
 button {
     margin-top: 20px;
     margin-right: 10px;
