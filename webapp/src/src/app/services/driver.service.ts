@@ -7,17 +7,18 @@ import { catchError, map, tap }     from 'rxjs/operators';
 import { Driver }                   from '../entity/driver';
 import { MessageService }           from './message.service';
 import { serviceUrl, httpOptions }  from './server';
-
-
-const DRIVERS: Driver[] = [
-    { id: 11, firstname: 'Fernando',  lastname: 'Alonso',   country: null},
-    { id: 12, firstname: 'Sebastian', lastname: 'Vettel',   country: null},
-    { id: 13, firstname: 'Lewis',     lastname: 'Hamilton', country: null}
-];
+import { ResourceService } from './resource.service';
 
 @Injectable()
-export class DriverService {
+export class DriverService extends ResourceService<Driver> {
 
+    constructor(httpClient: HttpClient) {
+        super(
+            httpClient,
+            'drivers');
+    }
+
+    /*
     private driverUrl : string = serviceUrl + "drivers";
 
     constructor(
@@ -33,10 +34,9 @@ export class DriverService {
         this.log('fetch drivers');
 
         return this.http.get<Driver[]>(this.driverUrl).pipe(
-            tap(heroes => this.log(`fetched drivers`)),
+            tap(driver => this.log(`fetched drivers`)),
             catchError(this.handleError('getDrivers', []))
         );
-        //return of(DRIVERS);
     }
 
     getDriver(id: number): Observable<Driver> {
@@ -71,13 +71,14 @@ export class DriverService {
             catchError(this.handleError<Driver>('addDriver'))
         );
     }
+    */
 
     /**
      * Handle Http operation that failed.
      * Let the app continue.
      * @param operation - name of the operation that failed
      * @param result - optional value to return as the observable result
-     */
+     * /
     private handleError<T> (operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
        
@@ -91,4 +92,5 @@ export class DriverService {
           return of(result as T);
         };
       }
+      */
 }

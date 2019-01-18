@@ -1,6 +1,7 @@
-export class Country {
+import { Resource } from "./resource";
 
-    id: number;
+export class Country extends Resource {
+
     isoCode: string;
     name: string;
 }

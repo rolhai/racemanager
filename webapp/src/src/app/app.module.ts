@@ -16,6 +16,10 @@ import { DriversComponent}       from './views/drivers/drivers.component';
 import { DriverDetailComponent } from './views/driver-detail/driver-detail.component';
 
 import { ServicesModule } from './services/services.module';
+import { TeamsComponent } from './views/teams/teams.component';
+import { TeamDetailComponent } from './views/team-detail/team-detail.component';
+import { CountriesComponent } from './views/countries/countries.component';
+import { CountryDetailComponent } from './views/country-detail/country-detail.component';
 
 @NgModule({
     imports: [
@@ -30,6 +34,10 @@ import { ServicesModule } from './services/services.module';
         DashboardComponent,
         DriversComponent,
         DriverDetailComponent,
+        TeamsComponent,
+        TeamDetailComponent,
+        CountriesComponent,
+        CountryDetailComponent,
         HeaderComponent,
         SidebarComponent, 
         FooterComponent,

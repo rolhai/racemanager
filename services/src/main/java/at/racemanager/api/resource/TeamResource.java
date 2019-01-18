@@ -19,6 +19,9 @@ import at.racemanager.api.entity.RmException;
 import at.racemanager.api.entity.Team;
 import at.racemanager.data.store.DriverStore;
 import at.racemanager.data.store.TeamStore;
+
+import java.util.logging.Logger;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
@@ -32,8 +35,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Resource for teams
@@ -47,7 +48,7 @@ import org.apache.logging.log4j.Logger;
 @Interceptors(ResourceExceptionInterceptor.class)
 public class TeamResource {
 
-    private static final Logger logger = LogManager.getLogger(TeamResource.class);
+    private static final Logger logger = Logger.getLogger(TeamResource.class.getName());
 
     @Inject
     private TeamStore teamStore;
@@ -57,7 +58,7 @@ public class TeamResource {
 
     @GET
     public Response findAll() {
-        logger.debug("find all teams");
+        logger.info("find all teams");
         return Response.ok(teamStore.findAll()).build();
     }
 
@@ -67,7 +68,7 @@ public class TeamResource {
         if (id <= 0) {
             throw new BadRequestException(ResourceError.NO_ID);
         }
-        logger.debug(String.format("find team with id %d", id));
+        logger.info(String.format("find team with id %d", id));
         return Response.ok(teamStore.findById(id)).build();
     }
 
@@ -76,7 +77,7 @@ public class TeamResource {
         if (team == null) {
             throw new BadRequestException(ResourceError.NO_TEAM);
         }
-        logger.debug(String.format("create team %s", team.toString()));
+        logger.info(String.format("create team %s", team.toString()));
         Team createdTeam = teamStore.create(team);
         return Response.ok(createdTeam).build();
     }
@@ -114,7 +115,7 @@ public class TeamResource {
         if (id <= 0) {
             throw new BadRequestException(ResourceError.NO_ID);
         }
-        logger.debug(String.format("remove team with id %d", id));
+        logger.info(String.format("remove team with id %d", id));
         teamStore.removeById(id);
         return Response.ok().build();
     }

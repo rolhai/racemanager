@@ -1,0 +1,15 @@
+:root {
+    --color-font-light: #fff;
+    --color-font-hover: #cfcfcf;
+    --color-font-dark: #000;
+    --color-background-l5: #f7fcf5;
+    --color-background-l4: #e4f4dc;
+    --color-background-l3: #c9e9ba;
+    --color-background-l2: #aedd97;
+    --color-background-l1: #94d274;
+    --color-background-d1: #69bf3e;
+    --color-background-d2: #5da937;
+    --color-background-d3: #519430;
+    --color-background-d4: #467f29;
+    --color-background-d5: #3a6a22;
+}

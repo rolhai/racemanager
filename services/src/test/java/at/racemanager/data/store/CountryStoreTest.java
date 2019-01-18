@@ -17,8 +17,8 @@ package at.racemanager.data.store;
 
 import at.racemanager.api.entity.Country;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.logging.Logger;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -29,7 +29,7 @@ import org.junit.Test;
  */
 public class CountryStoreTest extends StoreTest {
 
-    private static final Logger logger = LogManager.getLogger(CountryStoreTest.class);
+    private static final Logger logger = Logger.getLogger(CountryStoreTest.class.getName());
 
     @Test
     public void testCountries() {

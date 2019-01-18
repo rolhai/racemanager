@@ -34,13 +34,13 @@ export class DriverDetailComponent {
 
     getDriver(): void {
         const id = +this.route.snapshot.paramMap.get('id');
-        this.driverService.getDriver(id)
+        this.driverService.read(id)
           .subscribe(driver => this.driver = driver)
         //this.driver.country = this.countries.find(country => country.id === this.driver.id);
     }
 
     getCountries() : void {
-        this.countryService.getCountries()
+        this.countryService.list()
             .subscribe(countries => this.countries = countries);
     }
 
@@ -50,10 +50,11 @@ export class DriverDetailComponent {
 
     save(): void {
         if (this.driver.id == null) {
-            this.driverService.addDriver(this.driver);
+            this.driverService.create(this.driver)
+                .subscribe(() => this.goBack());
         }
         else {
-            this.driverService.updateDriver(this.driver)
+            this.driverService.update(this.driver)
                 .subscribe(() => this.goBack());
         }
     }
@@ -63,6 +64,9 @@ export class DriverDetailComponent {
     }
 
     compareCountry(c1: Country, c2: Country): boolean {
+        if (c1 === undefined || c2 === undefined) {
+            return false;
+        }
         if (c1 === null || c2 === null) {
             return false;
         }

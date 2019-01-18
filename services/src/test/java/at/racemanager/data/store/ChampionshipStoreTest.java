@@ -15,20 +15,19 @@
  */
 package at.racemanager.data.store;
 
-import at.racemanager.api.entity.Championship;
-import at.racemanager.api.entity.Race;
-import at.racemanager.api.entity.Team;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.logging.Logger;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-import static at.racemanager.data.store.StoreTest.em;
+import at.racemanager.api.entity.Championship;
+import at.racemanager.api.entity.Race;
+import at.racemanager.api.entity.Team;
 
 /**
  * Tests for ChampionshipStore
@@ -37,7 +36,7 @@ import static at.racemanager.data.store.StoreTest.em;
  */
 public class ChampionshipStoreTest extends StoreTest {
 
-    private static final Logger logger = LogManager.getLogger(ChampionshipStoreTest.class);
+    private static final Logger logger = Logger.getLogger(ChampionshipStoreTest.class.getName());
 
     @Test
     public void testChampionships() {

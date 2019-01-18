@@ -26,7 +26,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "countries")
 @NamedQueries({
-    @NamedQuery(name = Country.FIND_ALL, query = "FROM Country")
+    @NamedQuery(name = Country.FIND_ALL, query = "SELECT c FROM Country c")
     ,
     @NamedQuery(name = Country.COUNT_RESULTS, query = "SELECT COUNT(c) FROM Country c")
     ,

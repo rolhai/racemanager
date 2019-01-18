@@ -18,6 +18,9 @@ package at.racemanager.api.resource;
 import at.racemanager.api.entity.Championship;
 import at.racemanager.api.entity.RmException;
 import at.racemanager.data.store.ChampionshipStore;
+
+import java.util.logging.Logger;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
@@ -31,8 +34,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Resource for championships
@@ -46,14 +47,14 @@ import org.apache.logging.log4j.Logger;
 @Interceptors(ResourceExceptionInterceptor.class)
 public class ChampionshipResource {
 
-    private static final Logger logger = LogManager.getLogger(ChampionshipResource.class);
+    private static final Logger logger = Logger.getLogger(ChampionshipResource.class.getName());
 
     @Inject
     private ChampionshipStore championshipStore;
 
     @GET
     public Response findAll() {
-        logger.debug("find all championships");
+        logger.info("find all championships");
         return Response.ok(championshipStore.findAll()).build();
     }
 
@@ -63,7 +64,7 @@ public class ChampionshipResource {
         if (id <= 0) {
             throw new BadRequestException(ResourceError.NO_ID);
         }
-        logger.debug(String.format("find championship with id %d", id));
+        logger.info(String.format("find championship with id %d", id));
         return Response.ok(championshipStore.findById(id)).build();
     }
 
@@ -72,7 +73,7 @@ public class ChampionshipResource {
         if (championship == null) {
             throw new BadRequestException(ResourceError.NO_CHAMPIONSHIP);
         }
-        logger.debug(String.format("create championship %s", championship.toString()));
+        logger.info(String.format("create championship %s", championship.toString()));
         Championship createdCountry = championshipStore.create(championship);
         return Response.ok(createdCountry).build();
     }
@@ -83,7 +84,7 @@ public class ChampionshipResource {
         if (id <= 0) {
             throw new BadRequestException(ResourceError.NO_ID);
         }
-        logger.debug(String.format("remove championship with id %d", id));
+        logger.info(String.format("remove championship with id %d", id));
         championshipStore.removeById(id);
         return Response.ok().build();
     }

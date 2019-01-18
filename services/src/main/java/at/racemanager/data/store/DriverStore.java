@@ -19,9 +19,10 @@ import at.racemanager.api.entity.Country;
 import at.racemanager.api.entity.Driver;
 import at.racemanager.api.entity.RmException;
 import at.racemanager.api.entity.RmParameterException;
+
+import java.util.logging.Logger;
+
 import javax.ejb.Stateless;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * crud-operations for drivers
@@ -31,7 +32,7 @@ import org.apache.logging.log4j.Logger;
 @Stateless
 public class DriverStore extends DataStore<Driver> {
 
-    public static final Logger logger = LogManager.getLogger(DriverStore.class);
+    public static final Logger logger = Logger.getLogger(DriverStore.class.getName());
 
     @Override
     protected String getFindAllNamedQuery() {
@@ -60,7 +61,7 @@ public class DriverStore extends DataStore<Driver> {
         }
         driver.setCountry(country);
         em.persist(driver);
-        logger.debug(String.format("created driver with id ", driver.getId()));
+        logger.info(String.format("created driver with id ", driver.getId()));
         return driver;
     }
 

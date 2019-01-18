@@ -15,15 +15,14 @@
  */
 package at.racemanager.data.store;
 
-import at.racemanager.api.entity.Country;
-import at.racemanager.api.entity.Track;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.logging.Logger;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-import static at.racemanager.data.store.StoreTest.em;
+import at.racemanager.api.entity.Country;
+import at.racemanager.api.entity.Track;
 
 /**
  * Tests for TrackStore
@@ -32,7 +31,7 @@ import static at.racemanager.data.store.StoreTest.em;
  */
 public class TrackStoreTest extends StoreTest {
 
-    private static final Logger logger = LogManager.getLogger(TrackStoreTest.class);
+    private static final Logger logger = Logger.getLogger(TrackStoreTest.class.getName());
 
     @Test
     public void testTracks() {

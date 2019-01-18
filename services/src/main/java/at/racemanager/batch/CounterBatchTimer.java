@@ -16,12 +16,12 @@
 package at.racemanager.batch;
 
 import java.util.Properties;
+import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.batch.runtime.BatchRuntime;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -30,22 +30,22 @@ import org.apache.logging.log4j.Logger;
 @Singleton
 public class CounterBatchTimer {
 
-    private static final Logger logger = LogManager.getLogger(CounterBatchTimer.class);
+    private static final Logger logger = Logger.getLogger(CounterBatchTimer.class.getName());
 
     @PostConstruct
     public void init() {
-        logger.debug("CounterBatchTimer.init");
+        logger.info("CounterBatchTimer.init");
     }
 
     //@Schedule(hour = "17", minute = "20", second = "0")
     public void start() {
-        logger.debug("CounterBatchTimer.counterJob");
+        logger.info("CounterBatchTimer.counterJob");
         BatchRuntime.getJobOperator().start("counterJob", new Properties());
     }
 
     @Schedule(hour = "*", minute = "*", second = "2")
     public void everySeconds() {
-        logger.debug("CounterBatchTimer.everySeconds");
+        logger.info("CounterBatchTimer.everySeconds");
     }
 
 }
