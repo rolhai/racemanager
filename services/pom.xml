@@ -14,14 +14,17 @@
     <packaging>war</packaging>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+    	<java.version>11</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <!-- provided versions -->
         <javaee-version>8.0</javaee-version>
+        <microprofile-version>3.0</microprofile-version>
         <jaxb-version>2.3.0</jaxb-version>
         <hibernate-version>5.3.6.Final</hibernate-version>
         <!-- versions for tests -->
         <junit-version>4.12</junit-version>
+        <mockito-version>2.21.0</mockito-version>
         <h2-version>1.4.197</h2-version>
         <!-- diverse versions -->
         <cors-version>0.0.2</cors-version>
@@ -36,6 +39,13 @@
             <version>${javaee-version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+		    <groupId>org.eclipse.microprofile</groupId>
+		    <artifactId>microprofile</artifactId>
+		    <version>${microprofile-version}</version>
+		    <type>pom</type>
+		    <scope>provided</scope>
+		</dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
@@ -63,7 +73,13 @@
             <artifactId>junit</artifactId>
             <version>${junit-version}</version>
             <scope>test</scope>
-        </dependency>
+        </dependency>       
+        <dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <version>${mockito-version}</version>
+		    <scope>test</scope>
+		</dependency>
 
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -98,6 +114,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+			        <release>${java.version}</release>
+			    </configuration>
+			    <dependencies>
+			        <dependency>
+			            <groupId>org.ow2.asm</groupId>
+			            <artifactId>asm</artifactId>
+			            <version>7.1</version>
+			        </dependency>
+			    </dependencies>
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -121,6 +147,13 @@
                 <configuration>
                     <runOrder>random</runOrder>
                 </configuration>
+                <dependencies>
+			        <dependency>
+			            <groupId>org.ow2.asm</groupId>
+			            <artifactId>asm</artifactId>
+			            <version>7.1</version>
+			        </dependency>
+			    </dependencies>
             </plugin>
         </plugins>
     </build>
