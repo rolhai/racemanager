@@ -25,7 +25,7 @@
         <!-- versions for tests -->
         <junit-version>4.12</junit-version>
         <mockito-version>2.21.0</mockito-version>
-        <h2-version>1.4.197</h2-version>
+        <h2-version>2.1.210</h2-version>
         <!-- diverse versions -->
         <cors-version>0.0.2</cors-version>
         <jackson-version>2.9.5</jackson-version>      
