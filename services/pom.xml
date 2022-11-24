@@ -21,7 +21,7 @@
         <javaee-version>8.0</javaee-version>
         <microprofile-version>3.0</microprofile-version>
         <jaxb-version>2.3.0</jaxb-version>
-        <hibernate-version>5.3.6.Final</hibernate-version>
+        <hibernate-version>5.3.20.Final</hibernate-version>
         <!-- versions for tests -->
         <junit-version>4.12</junit-version>
         <mockito-version>2.21.0</mockito-version>
